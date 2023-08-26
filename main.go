@@ -20,7 +20,7 @@ func main() {
 		panic(err)
 	}
 
-	printBanner(words, bannerLines)
+	GenerateASCIIArt(words, bannerLines)
 }
 
 func readBannerFile(filename string) ([]string, error) {
@@ -38,7 +38,7 @@ func readBannerFile(filename string) ([]string, error) {
 	return bannerLines, scanner.Err()
 }
 
-func printBanner(words []string, bannerLines []string) {
+func GenerateASCIIArt(words []string, bannerLines []string) {
 	for i, word := range words {
 		if word == "" {
 			if i < len(words)-1 {
