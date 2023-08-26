@@ -8,53 +8,56 @@ import (
 )
 
 func main() {
-	// Combine the command-line arguments into a single string.
 	str := strings.Join(os.Args[1:], " ")
-	// Split the string into individual words using "\n" as the separator.
 	words := strings.Split(str, `\n`)
-	// Open the file containing the banner text.
-	var filename string
+	filename := "standard"
 	if len(os.Args[1:]) == 2 {
 		filename = os.Args[2]
-	} else {
-		filename = "standard"
 	}
-	bannerFile, err := os.Open(filename + ".txt")
+
+	bannerLines, err := readBannerFile("Banners/" + filename + ".txt")
 	if err != nil {
-		// If there was an error opening the file, panic.
 		panic(err)
 	}
-	// Make sure to close the file when the function returns.
-	defer bannerFile.Close()
-	// Create a scanner to read the contents of the file line by line.
-	scanner := bufio.NewScanner(bannerFile)
-	// Store each line of the banner text in a slice.
+
+	printBanner(words, bannerLines)
+}
+
+func readBannerFile(filename string) ([]string, error) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
 	var bannerLines []string
+	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		bannerLines = append(bannerLines, scanner.Text())
 	}
-	// Iterate over each word in the input.
+	return bannerLines, scanner.Err()
+}
+
+func printBanner(words []string, bannerLines []string) {
 	for i, word := range words {
-		// If the word is empty, print a newline and continue to the next word.
 		if word == "" {
 			if i < len(words)-1 {
 				fmt.Println()
 			}
 			continue
 		}
-		// For each "line" in the banner text (represented by a sequence of characters
-		// on a particular row), print the appropriate characters for the current word.
-		for row := 1; row < 9; row++ {
-			for _, char := range word {
-				for lineIndex, line := range bannerLines {
-					// Determine which line corresponds to the current character and row.
-					if lineIndex == (int(char)-32)*9+row {
-						fmt.Print(line)
-					}
-				}
+		printWordBanner(word, bannerLines)
+	}
+}
+
+func printWordBanner(word string, bannerLines []string) {
+	for row := 1; row < 9; row++ {
+		for _, char := range word {
+			lineIndex := (int(char)-32)*9 + row
+			if lineIndex >= 0 && lineIndex < len(bannerLines) {
+				fmt.Print(bannerLines[lineIndex])
 			}
-			// Print a newline after each row of the word.
-			fmt.Println()
 		}
+		fmt.Println()
 	}
 }
