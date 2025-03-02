@@ -2,7 +2,7 @@ package util
 
 import "fmt"
 
-func printWordBanner(word string, bannerLines []string) {
+func PrintWordBanner(word string, bannerLines []string) {
 	for row := 1; row < 9; row++ {
 		for _, char := range word {
 			lineIndex := (int(char)-32)*9 + row

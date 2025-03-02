@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func readBannerFile(filename string) ([]string, error) {
+func ReadBannerFile(filename string) ([]string, error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return nil, err

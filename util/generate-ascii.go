@@ -2,7 +2,7 @@ package util
 
 import "fmt"
 
-func PrintBanner(words []string, bannerLines []string) {
+func GenerateASCIIArt(words []string, bannerLines []string) {
 	for i, word := range words {
 		if word == "" {
 			if i < len(words)-1 {
