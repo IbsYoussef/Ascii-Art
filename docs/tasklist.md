@@ -31,7 +31,7 @@
 ---
 
 ### 🧪 Phase 5: Testing
-- [ ] Create unit tests for the `ParseInput` function
+- [x] Create unit tests for the `ParseInput` function
 - [ ] Create unit tests for banner parsing logic
 - [ ] Create unit tests for rendering logic
 - [ ] Test special cases like empty string, just `\n`, unsupported characters, etc.
