@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func ReadFile(path string) ([]string, error) {
+func ReadBannerLines(path string) ([]string, error) {
 	// Attempt to open file
 	file, err := os.Open(path)
 
@@ -13,7 +13,7 @@ func ReadFile(path string) ([]string, error) {
 		// Return nil slice and encountered error if opening the file fails
 		return nil, err
 	}
-	defer file.Close() //Close the file when the functions exits
+	defer file.Close() // Close the file when the function exits
 
 	// Create a slice to hold the lines from the file
 	var lines []string
