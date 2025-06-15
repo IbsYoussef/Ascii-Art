@@ -34,6 +34,8 @@ func GetUserInput() (string, string, error) {
 	}
 
 	input := strings.TrimSpace(args[1])
+	input = strings.ReplaceAll(input, "\\n", "\n")
+
 	if input == "" {
 		return "", "", errEmptyInput
 	}

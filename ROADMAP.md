@@ -8,7 +8,7 @@ A Go program that renders input strings as stylised ASCII art using different ba
 > **Goal:** Handle input from the user and validate it.
 
 - [x] Accept a string input via command-line arguments
-- [ ] Parse and validate input (ensure only printable characters, handle `\n`)
+- [x] Parse and validate input (ensure only printable characters, handle `\n`)
 - [x] Accept and validate banner style input (`shadow`, `standard`, `thinkertoy`)
 - [x] Print helpful error messages for invaid input or style
 
