@@ -7,10 +7,10 @@ A Go program that renders input strings as stylised ASCII art using different ba
 ## 📌 Phase 1: Core CLI + Argument Parsing
 > **Goal:** Handle input from the user and validate it.
 
-- [ ] Accept a string input via command-line arguments
+- [x] Accept a string input via command-line arguments
 - [ ] Parse and validate input (ensure only printable characters, handle `\n`)
-- [ ] Accept and validate banner style input (`shadow`, `standard`, `thinkertoy`)
-- [ ] Print helpful error messages for invaid input or style
+- [x] Accept and validate banner style input (`shadow`, `standard`, `thinkertoy`)
+- [x] Print helpful error messages for invaid input or style
 
 ---
 
