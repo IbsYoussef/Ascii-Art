@@ -17,8 +17,8 @@ A Go program that renders input strings as stylised ASCII art using different ba
 ## 🧩 Phase 2: Banner File Loader
 > **Goal:** Load and parse the font/banner data.
 
-- [ ] Open the appropriate banner file from `/banners`
-- [ ] Read and store ASCII representations into a usable data structure (e.g., `map[rune][]string`)
+- [x] Open the appropriate banner file from `/banners`
+- [x] Read and store ASCII representations into a usable data structure (e.g., `map[rune][]string`)
 - [ ] Handle edge cases (e.g., missing files, malformed banners)
 
 ---
