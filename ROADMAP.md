@@ -19,7 +19,7 @@ A Go program that renders input strings as stylised ASCII art using different ba
 
 - [x] Open the appropriate banner file from `/banners`
 - [x] Read and store ASCII representations into a usable data structure (e.g., `map[rune][]string`)
-- [ ] Handle edge cases (e.g., missing files, malformed banners)
+- [x] Handle edge cases (e.g., missing files, malformed banners)
 
 ---
 
