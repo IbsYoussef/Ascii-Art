@@ -2,6 +2,7 @@ package files
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 )
 
@@ -29,6 +30,10 @@ func ReadBannerLines(path string) ([]string, error) {
 	if err := scanner.Err(); err != nil {
 		// Return encountered error if there was an issue scanning the file
 		return nil, err
+	}
+
+	if len(lines) == 0 {
+		return nil, fmt.Errorf("file %s is empty", path)
 	}
 
 	// Return the slice of lines and nil error on success
