@@ -6,31 +6,24 @@ import (
 )
 
 func main() {
+	// Get user input and banner choice
 	input, banner, err := ascii.GetUserInput()
 
+	// If there was an error getting user input, print the error and exit
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fmt.Println("User Input: ", input)
-	fmt.Println("Banner Choice: ", banner)
-	fmt.Println()
-
+	// Load the ASCII banner from the specified file
 	result, err := ascii.LoadBannerFile(banner)
+
+	// If the banner file is not found, print an error message and exit
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
-	for r := rune(32); r <= 126; r++ {
-		fmt.Printf("Character: %q (ASCII %d)\n", r, r)
-		if lines, ok := result[r]; ok {
-			for _, line := range lines {
-				fmt.Println(line)
-			}
-		} else {
-			fmt.Println("Missing or corrupted")
-		}
-		fmt.Println()
-	}
+	// Render the input in banner style as ASCII art
+	ascii.RenderAscii(input, result)
 }
