@@ -26,10 +26,9 @@ A Go program that renders input strings as stylised ASCII art using different ba
 ## 🖼 Phase 3: ASCII Rendering Engine
 > **Goal:** Translate input strings into ASCII art using loaded banners.
 
-- [ ] Implement render logic (match characters to font lines)
-- [ ] Handle line breaks (`\n`) properly
-- [ ] Optimize spacing and alignment
-- [ ] Add support for special characters
+- [x] Implement render logic (match characters to font lines)
+- [x] Handle line breaks (`\n`) properly
+- [x] Optimize spacing and alignment
 
 ---
 
