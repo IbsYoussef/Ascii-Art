@@ -43,6 +43,24 @@ func TestGetUserInput(t *testing.T) {
 			args:          []string{"cmd", "Hey", "unknown"},
 			expectedError: errInvalidBanner,
 		},
+		{
+			name:           "Escaped newline in input",
+			args:           []string{"cmd", "Hello\\nWorld"},
+			expectedInput:  "Hello\nWorld",
+			expectedBanner: "standard",
+		},
+		{
+			name:           "Input with leading and trailing spaces",
+			args:           []string{"cmd", "   Hello   "},
+			expectedInput:  "Hello",
+			expectedBanner: "standard",
+		},
+		{
+			name:           "Banner style with uppercase (should fail)",
+			args:           []string{"cmd", "Hello World"},
+			expectedInput:  "Hello World",
+			expectedBanner: "standard",
+		},
 	}
 
 	for _, tc := range testCases {
