@@ -35,9 +35,9 @@ A Go program that renders input strings as stylised ASCII art using different ba
 ## 🧪 Phase 4: Testing & Validation
 > **Goal:** Ensure reliability through tests.
 
-- [ ] Write unit tests for banner loading
-- [ ] Write unit tests for render logic
-- [ ] Test CLI behavior with various inputs
-- [ ] Validate output against known-good samples
+- [x] Write unit tests for banner loading
+- [x] Write unit tests for render logic
+- [x] Test CLI behavior with various inputs
+- [x] Validate output against known-good samples
 
 ---
