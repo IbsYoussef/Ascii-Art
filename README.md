@@ -24,12 +24,6 @@ A CLI application written in Go that renders ASCII art using formatted banners f
 ---
 
 ## 📝 About
-
-
-
----
-
-## 📝 About
 ```
                                                             _____    _____   _____   _____                    _____    _______  
                                                    /\      / ____|  / ____| |_   _| |_   _|           /\     |  __ \  |__   __| 
