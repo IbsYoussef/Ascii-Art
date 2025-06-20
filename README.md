@@ -4,6 +4,12 @@ A CLI application written in Go that renders ASCII art using formatted banners f
 
 ## 📑 Table of Contents
 
+# ASCII-ART
+
+A CLI application written in Go that renders ASCII art using formatted banners from input text.
+
+## 📑 Table of Contents
+
 1. [📝 About](#-about)  
 2. [📁 File Structure](#-file-structure)  
 3. [✨ Features](#-features)  
@@ -14,6 +20,11 @@ A CLI application written in Go that renders ASCII art using formatted banners f
 5. [🔭 Future Plans](#-future-plans)  
 6. [🤝 Contributions](#-contributions)  
 7. [📄 License](#license)
+
+---
+
+## 📝 About
+
 
 
 ---
@@ -39,27 +50,39 @@ It was created as part of my coding course at 01 Founders to deepen my understan
 .
 ├── README.md
 ├── ROADMAP.md
-├── banners // Banner files used for reading, parsing and rendering ASCII art text
+├── banners // Banner files used for reading, parsing,and rendering ASCII art text
 │   ├── shadow.txt
 │   ├── standard.txt
 │   └── thinkertoy.txt
+├── build // Builder that cross-compiles and zips output
+│   ├── embedmain
+│   │   └── main.go
+│   └── main.go
 ├── cmd // Main command point to run program
 │   └── main.go
 ├── go.mod
-├── internal // Folder housing the core internal logic of the programm
-│   ├── ascii // Core ascii art logic with unit testing
+├── internal
+│   ├── ascii // Core ascii logic
 │   │   ├── input.go
 │   │   ├── input_test.go
 │   │   ├── loadBanner.go
 │   │   ├── loadBanner_test.go
 │   │   ├── renderAscii.go
 │   │   └── renderAscii_test.go
-│   ├── e2e // End 2 End integration test
+│   ├── asciiembed // Embedded banner logic
+│   │   ├── banners
+│   │   │   ├── shadow.txt
+│   │   │   ├── standard.txt
+│   │   │   └── thinkertoy.txt
+│   │   ├── banners.go
+│   │   ├── loadBanner.go
+│   │   └── parser.go
+│   ├── e2e // End to End integration test
 │   │   └── e2e_test.go
-│   └── files // File reading logic with unit test
+│   └── files // File reading and helpers
 │       ├── readFile.go
 │       └── readFile_test.go
-└── output_tests // Tests of ascii art output to files 
+└── output_tests // ASCII output test samples
     ├── output.txt
     ├── output2.txt
     ├── output3.txt
@@ -68,16 +91,17 @@ It was created as part of my coding course at 01 Founders to deepen my understan
     ├── output6_thinkertoy.txt
     └── output7.txt
 
-8 directories, 23 files
+12 directories, 31 files
 ```
 ---
 
 ## ✨ Features
-- 🖊️ Takes user input from the command line and renders it as ASCII art
-- 🎨 Supports multiple banner styles (`standard`, `shadow`, and `thinkertoy`)
-- 📜 Handles multi-line input using `\n` escape characters
-- 💡 Clean and modular Go codebase for easy readability and maintenance
-- ⚙️ Fully runnable from the terminal — just one simple command
+- 🖊️ Takes user input from the command line and renders it as ASCII art  
+- 🎨 Supports multiple banner styles (`standard`, `shadow`, `thinkertoy`)  
+- 📜 Handles multi-line input using `\n` escape characters  
+- 💡 Clean and modular Go codebase for easy readability and testing  
+- 🧩 Embeds banner files into the binary for portability  
+- ⚙️ Cross-platform builder with auto `.zip` packaging support  
 ---
 
 ## 🚀 Usage Instructions
@@ -101,7 +125,19 @@ go run ./cmd "Hello\nWorld" <banner-choice>
 ```
 
 - ### 📥 Download the executables (Non-Go Users)
-TBC
+Precompiled .zip packages are available for each platform in the Releases tab.
+Example .zip packages:
+- ascii-art-windows.zip
+- ascii-art-linux.zip
+- ascii-art-macos-intel.zip
+- ascii-art-macos-arm64.zip
+
+Each .zip contains a single, ready-to-run binary.
+Just extract it and run from your terminal:
+
+```bash
+./ascii-art-linux "Hello\nWorld" shadow
+```
 
 ---
 
@@ -112,6 +148,9 @@ Here are a few enhancements I plan to add in future updates:
 - 🔁 **Reverse Mode**: Option to reverse the input text before rendering it in ASCII format
 - 💾 **Output to File**: Allow users to save the ASCII art output to a file of their choice using an `--output` or `-o` flag
 - 📐 **Text Alignment**: Add flags for aligning text output (`--left`, `--center`, `--right`) for better formatting control
+- 🛠 **CLI flag support** in builder (e.g., --os linux, --zip, --clean)
+- 📦 **Auto-zipping** in the build step for smoother releases
+- 🤖 **Optional GitHub/Gitea CI integration** to automate building and releasing
 
 ---
 
@@ -142,6 +181,9 @@ If you're not sure about a major change, open an issue first to discuss your ide
 
 Thank you for helping make ascii-art even better!
 
+---
+## 🙏 Acknowledgements
+- Created as part of my Go learning journey at 01 Founders
 ---
 
 ## License
