@@ -30,7 +30,7 @@ A CLI application written in Go that renders ASCII art using formatted banners f
                      /  \    | (___   | |        | |     | |            /  \    | |__) |    | |    
                     / /\ \    \___ \  | |        | |     | |           / /\ \   |  _  /     | |    
                    / ____ \   ____) | | |____   _| |_   _| |_         / ____ \  | | \ \     | |    
-                  /_/    \_\ |_____/   \_____| |_____| |_____|       /_/    \_\ |_|  \_\    |_|   
+                  /_/    \_\ |_____/   \_____| |_____| |_____|       /_/    \_\ |_|  \_\    |_|    
 ```
 
 This project is a command-line tool written in Go that takes user input and transforms it into styled ASCII art using various banner template styles like `standard`, `shadow`, and `thinkertoy`.
