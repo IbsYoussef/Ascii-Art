@@ -19,7 +19,8 @@ A CLI application written in Go that renders ASCII art using formatted banners f
    - [📥 Download the Executables (Non-Go Users)](#-download-the-executables-non-go-users)  
 5. [🔭 Future Plans](#-future-plans)  
 6. [🤝 Contributions](#-contributions)  
-7. [📄 License](#license)
+7. [🙏 Acknowledgements](#-acknowledgements)
+7. [📄 License](#-license)
 
 ---
 
@@ -180,7 +181,7 @@ Thank you for helping make ascii-art even better!
 - Created as part of my Go learning journey at 01 Founders
 ---
 
-## License
+## 📄 License
 This project is licensed under the [MIT License](LICENSE).
 
 Acknowledgements
@@ -195,5 +196,5 @@ Resources:
 The MIT License
 Various open-source projects and communities that encourage collaboration and learning.
 Thank you for checking out go-reloaded! We hope this tool helps streamline your text processing tasks and that you find it both useful and easy to contribute to.
----
+
 
