@@ -4,12 +4,6 @@ A CLI application written in Go that renders ASCII art using formatted banners f
 
 ## 📑 Table of Contents
 
-# ASCII-ART
-
-A CLI application written in Go that renders ASCII art using formatted banners from input text.
-
-## 📑 Table of Contents
-
 1. [📝 About](#-about)  
 2. [📁 File Structure](#-file-structure)  
 3. [✨ Features](#-features)  
