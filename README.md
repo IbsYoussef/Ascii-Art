@@ -137,6 +137,7 @@ Here are a few enhancements I plan to add in future updates:
 - 🔁 **Reverse Mode**: Option to reverse the input text before rendering it in ASCII format
 - 💾 **Output to File**: Allow users to save the ASCII art output to a file of their choice using an `--output` or `-o` flag
 - 📐 **Text Alignment**: Add flags for aligning text output (`--left`, `--center`, `--right`) for better formatting control
+- 🌐 **Web Version**: Add a hosted web version for users to interact with directly
 - 🛠 **CLI flag support** in builder (e.g., --os linux, --zip, --clean)
 - 📦 **Auto-zipping** in the build step for smoother releases
 - 🤖 **Optional GitHub/Gitea CI integration** to automate building and releasing
