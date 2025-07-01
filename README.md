@@ -98,7 +98,7 @@ It was created as part of my coding course at 01 Founders to deepen my understan
 First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/IbsYoussef/ascii-art.git
+git clone https://learn.01founders.co/git/iyoussef/Ascii-Art.git
 cd ascii-art
 ```
 
