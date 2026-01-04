@@ -177,18 +177,3 @@ Thank you for helping make ascii-art even better!
 
 ## 📄 License
 This project is licensed under the [MIT License](LICENSE).
-
-Acknowledgements
-Special Thanks:
-Thanks to all contributors, mentors, and peers who provided feedback and support during the development of go-reloaded.
-
-Inspiration:
-This project was inspired by best practices in Go development and the need for automated text formatting solutions.
-
-Resources:
-
-The MIT License
-Various open-source projects and communities that encourage collaboration and learning.
-Thank you for checking out go-reloaded! We hope this tool helps streamline your text processing tasks and that you find it both useful and easy to contribute to.
-
-
