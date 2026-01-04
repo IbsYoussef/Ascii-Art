@@ -8,15 +8,15 @@ import (
 
 // ANSI color codes for named colors
 var namedColors = map[string]string{
-	"black":   "\033[30m",
-	"red":     "\033[31m",
-	"green":   "\033[32m",
-	"yellow":  "\033[33m",
-	"blue":    "\033[34m",
-	"magenta": "\033[35m",
-	"cyan":    "\033[36m",
-	"white":   "\033[37m",
-	"orange":  "\033[38;5;208m", // 256-color orange
+	"black":   "\033[38;2;0;0;0m",       // RGB black
+	"red":     "\033[38;2;255;0;0m",     // RGB pure red
+	"green":   "\033[38;2;0;255;0m",     // RGB pure green
+	"yellow":  "\033[38;2;255;255;0m",   // RGB yellow
+	"blue":    "\033[38;2;0;0;255m",     // RGB blue
+	"magenta": "\033[38;2;255;0;255m",   // RGB magenta
+	"cyan":    "\033[38;2;0;255;255m",   // RGB cyan
+	"white":   "\033[38;2;255;255;255m", // RGB white
+	"orange":  "\033[38;2;255;165;0m",   // RGB orange
 	"reset":   "\033[0m",
 }
 
