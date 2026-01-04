@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-var errInvalidColorFlag = errors.New(`Usage: go run . [OPTION] [STRING]
-EX: go run . --color=<color> <substring to be colored> "something"`)
+var errInvalidColorFlag = errors.New(`Usage: go run ./cmd [OPTION] [STRING]
+EX: go run ./cmd --color=<color> <substring to be colored> "something"`)
 
 // ColorConfig holds color configuration
 type ColorConfig struct {
@@ -26,8 +26,13 @@ func GetUserInputWithColor() (string, string, ColorConfig, error) {
 		return "", "", ColorConfig{}, errMissingInput
 	}
 
-	// Check if first argument is a color flag
-	if strings.HasPrefix(args[0], "--color=") {
+	// Check if first argument is a color flag (with or without =)
+	if strings.HasPrefix(args[0], "--color") {
+		// Check if it has the correct format (with =)
+		if !strings.HasPrefix(args[0], "--color=") {
+			// Wrong format: --color red instead of --color=red
+			return "", "", ColorConfig{}, errInvalidColorFlag
+		}
 		return parseWithColorFlag(args)
 	}
 
