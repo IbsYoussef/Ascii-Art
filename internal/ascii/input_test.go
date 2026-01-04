@@ -11,52 +11,52 @@ func TestGetUserInput(t *testing.T) {
 
 	testCases := []struct {
 		name           string
-		args           []string
+		args           []string // Simulates full os.Args (includes program name)
 		expectedInput  string
 		expectedBanner string
 		expectedError  error
 	}{
 		{
 			name:          "No input provided",
-			args:          []string{"cmd"},
+			args:          []string{"cmd"}, // Only program name, no arguments
 			expectedError: errMissingInput,
 		},
 		{
 			name:          "Empty input string",
-			args:          []string{"cmd", ""},
+			args:          []string{"cmd", ""}, // Program name + empty string
 			expectedError: errEmptyInput,
 		},
 		{
 			name:           "Valid input with default banner",
-			args:           []string{"cmd", "Hello"},
+			args:           []string{"cmd", "Hello"}, // Program name + text input
 			expectedInput:  "Hello",
 			expectedBanner: "standard",
 		},
 		{
 			name:           "Valid input with shadow banner",
-			args:           []string{"cmd", "Hi", "shadow"},
+			args:           []string{"cmd", "Hi", "shadow"}, // Program name + text + banner
 			expectedInput:  "Hi",
 			expectedBanner: "shadow",
 		},
 		{
 			name:          "Invalid banner style",
-			args:          []string{"cmd", "Hey", "unknown"},
+			args:          []string{"cmd", "Hey", "unknown"}, // Invalid banner name
 			expectedError: errInvalidBanner,
 		},
 		{
 			name:           "Escaped newline in input",
-			args:           []string{"cmd", "Hello\\nWorld"},
+			args:           []string{"cmd", "Hello\\nWorld"}, // \\n should become \n
 			expectedInput:  "Hello\nWorld",
 			expectedBanner: "standard",
 		},
 		{
 			name:           "Input with leading and trailing spaces",
-			args:           []string{"cmd", "   Hello   "},
+			args:           []string{"cmd", "   Hello   "}, // Spaces should be trimmed
 			expectedInput:  "Hello",
 			expectedBanner: "standard",
 		},
 		{
-			name:           "Banner style with uppercase (should fail)",
+			name:           "Input without banner defaults to standard",
 			args:           []string{"cmd", "Hello World"},
 			expectedInput:  "Hello World",
 			expectedBanner: "standard",
@@ -65,7 +65,7 @@ func TestGetUserInput(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			// Override os.Args with simulated CLI input
+			// Override os.Args with simulated CLI input (includes program name)
 			os.Args = tc.args
 
 			// Call the function under test
@@ -76,7 +76,7 @@ func TestGetUserInput(t *testing.T) {
 				if err == nil || err.Error() != tc.expectedError.Error() {
 					t.Errorf("Expected error %q, got %v", tc.expectedError, err)
 				}
-				return // skip further checks if error was expected
+				return // Skip further checks if error was expected
 			}
 
 			// If no error expected, check values
@@ -91,5 +91,4 @@ func TestGetUserInput(t *testing.T) {
 			}
 		})
 	}
-
 }

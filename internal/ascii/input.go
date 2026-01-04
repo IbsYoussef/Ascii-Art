@@ -8,7 +8,7 @@ import (
 
 var (
 	errMissingInput = errors.New(`missing input. 
-expected format: go run ./cmd "text input" <banner-style>
+expected format: go run . "text input" <banner-style>
 hint: wrap multi-word input in quotes`)
 
 	errEmptyInput = errors.New(`text input cannot be empty.
@@ -27,22 +27,28 @@ var validBanners = map[string]bool{
 
 // GetUserInput validates and returns user input and banner
 func GetUserInput() (string, string, error) {
-	args := os.Args
+	// Get user input in terminal
+	args := os.Args[1:]
 
-	if len(args) < 2 {
+	// Check if we have at least one argument (text input)
+	if len(args) < 1 {
 		return "", "", errMissingInput
 	}
 
-	input := strings.TrimSpace(args[1])
+	// First argument is the text input
+	input := strings.TrimSpace(args[0])
 	input = strings.ReplaceAll(input, "\\n", "\n")
 
 	if input == "" {
 		return "", "", errEmptyInput
 	}
 
+	// Default banner is the standard banner
 	banner := "standard"
-	if len(args) >= 3 {
-		banner = args[2]
+
+	// If second argument exists, it's the banner
+	if len(args) >= 2 {
+		banner = args[1]
 		if !validBanners[banner] {
 			return "", "", errInvalidBanner
 		}
