@@ -4,28 +4,29 @@ A CLI application written in Go that renders ASCII art using formatted banners f
 
 ## 📑 Table of Contents
 
-1. [📝 About](#-about)  
-2. [📁 File Structure](#-file-structure)  
-3. [✨ Features](#-features)  
-4. [🚀 Usage Instructions](#-usage-instructions)  
-   - [📦 Clone the Repository](#-clone-the-repository)  
-   - [⚙️ Run the CLI (Go Users)](#-run-the-cli-go-users)  
-   - [📥 Download the Executables (Non-Go Users)](#-download-the-executables-non-go-users)  
-5. [🔭 Future Plans](#-future-plans)  
-6. [🤝 Contributions](#-contributions)  
+1. [📝 About](#-about)
+2. [📁 File Structure](#-file-structure)
+3. [✨ Features](#-features)
+4. [🚀 Usage Instructions](#-usage-instructions)
+   - [📦 Clone the Repository](#-clone-the-repository)
+   - [⚙️ Run the CLI (Go Users)](#-run-the-cli-go-users)
+   - [📥 Download the Executables (Non-Go Users)](#-download-the-executables-non-go-users)
+5. [🔭 Future Plans](#-future-plans)
+6. [🤝 Contributions](#-contributions)
 7. [🙏 Acknowledgements](#-acknowledgements)
-7. [📄 License](#-license)
+8. [📄 License](#-license)
 
 ---
 
 ## 📝 About
+
 ```
-                               _____    _____   _____   _____                    _____    _______                       
-                      /\      / ____|  / ____| |_   _| |_   _|           /\     |  __ \  |__   __|                      
-                     /  \    | (___   | |        | |     | |            /  \    | |__) |    | |                         
-                    / /\ \    \___ \  | |        | |     | |           / /\ \   |  _  /     | |                         
-                   / ____ \   ____) | | |____   _| |_   _| |_         / ____ \  | | \ \     | |                         
-                  /_/    \_\ |_____/   \_____| |_____| |_____|       /_/    \_\ |_|  \_\    |_|                         
+                               _____    _____   _____   _____                    _____    _______
+                      /\      / ____|  / ____| |_   _| |_   _|           /\     |  __ \  |__   __|
+                     /  \    | (___   | |        | |     | |            /  \    | |__) |    | |
+                    / /\ \    \___ \  | |        | |     | |           / /\ \   |  _  /     | |
+                   / ____ \   ____) | | |____   _| |_   _| |_         / ____ \  | | \ \     | |
+                  /_/    \_\ |_____/   \_____| |_____| |_____|       /_/    \_\ |_|  \_\    |_|
 ```
 
 This project is a command-line tool written in Go that takes user input and transforms it into styled ASCII art using various banner template styles like `standard`, `shadow`, and `thinkertoy`.
@@ -35,6 +36,7 @@ It was created as part of my coding course at 01 Founders to deepen my understan
 ---
 
 ## 📁 File structure
+
 ```
 .
 ├── README.md
@@ -82,20 +84,24 @@ It was created as part of my coding course at 01 Founders to deepen my understan
 
 12 directories, 31 files
 ```
+
 ---
 
 ## ✨ Features
-- 🖊️ Takes user input from the command line and renders it as ASCII art  
-- 🎨 Supports multiple banner styles (`standard`, `shadow`, `thinkertoy`)  
-- 📜 Handles multi-line input using `\n` escape characters  
-- 💡 Clean and modular Go codebase for easy readability and testing  
-- 🧩 Embeds banner files into the binary for portability  
-- ⚙️ Cross-platform builder with auto `.zip` packaging support  
+
+- 🖊️ Takes user input from the command line and renders it as ASCII art
+- 🎨 Supports multiple banner styles (`standard`, `shadow`, `thinkertoy`)
+- 📜 Handles multi-line input using `\n` escape characters
+- 💡 Clean and modular Go codebase for easy readability and testing
+- 🧩 Embeds banner files into the binary for portability
+- ⚙️ Cross-platform builder with auto `.zip` packaging support
+
 ---
 
 ## 🚀 Usage Instructions
+
 - ### 📦 Clone the repository
-First, clone the repository to your local machine:
+  First, clone the repository to your local machine:
 
 ```bash
 git clone https://learn.01founders.co/git/iyoussef/Ascii-Art.git
@@ -103,19 +109,22 @@ cd ascii-art
 ```
 
 - ### ⚙️ Run the CLI (Go Users)
+
 ```bash
 go run ./cmd "Hello World" <banner-choice>
 ```
+
 You can use either `standard`, `shadow` or `thinkertoy` as you banner choice for the styling, if omitted the standard banner will be used by default.
 
 To print text on multiple lines use \n in your string input:
+
 ```bash
 go run ./cmd "Hello\nWorld" <banner-choice>
 ```
 
 - ### 📥 Download the executables (Non-Go Users)
-Precompiled .zip packages are available for each platform in the Releases tab.
-Example .zip packages:
+  Precompiled .zip packages are available for each platform in the Releases tab.
+  Example .zip packages:
 - ascii-art-windows.zip
 - ascii-art-linux.zip
 - ascii-art-macos-intel.zip
@@ -131,6 +140,7 @@ Just extract it and run from your terminal:
 ---
 
 ## 🔭 Future Plans
+
 Here are a few enhancements I plan to add in future updates:
 
 - 🎨 **Color Output**: Add a `--color` flag so users can stylize their ASCII art with terminal color codes (e.g., red, green, cyan, etc.)
@@ -143,7 +153,8 @@ Here are a few enhancements I plan to add in future updates:
 
 ---
 
-##  🤝 Contributions
+## 🤝 Contributions
+
 Contributions are welcome! If you'd like to help improve **ascii-art**, please follow these steps:
 
 1. **Fork the Repository:**  
@@ -155,40 +166,29 @@ Contributions are welcome! If you'd like to help improve **ascii-art**, please f
     git checkout -b feature-or-bugfix-description
    ```
 3. **Make your Changes:**
-Implement your changes and ensure that your code adheres to the project's style guidelines.
-Tip: Write or update tests as needed.
+   Implement your changes and ensure that your code adheres to the project's style guidelines.
+   Tip: Write or update tests as needed.
 
 4. **Commit and Push your Changes**:
-Commit your changes with a clear, descriptive message and push your branch to your forked repository:
-    ```bash
+   Commit your changes with a clear, descriptive message and push your branch to your forked repository:
+   `bash
     git commit -m "Add: description of your changes"
     git push origin feature-or-bugfix-description
-    ```
+    `
 5. **Open a Pull Request**:
-Open a pull request (PR) from your branch to the main repository. Please include a clear description of your changes and the motivation behind them.
-If you're not sure about a major change, open an issue first to discuss your ideas.
+   Open a pull request (PR) from your branch to the main repository. Please include a clear description of your changes and the motivation behind them.
+   If you're not sure about a major change, open an issue first to discuss your ideas.
 
 Thank you for helping make ascii-art even better!
 
 ---
+
 ## 🙏 Acknowledgements
+
 - Created as part of my Go learning journey at 01 Founders
+
 ---
 
 ## 📄 License
+
 This project is licensed under the [MIT License](LICENSE).
-
-Acknowledgements
-Special Thanks:
-Thanks to all contributors, mentors, and peers who provided feedback and support during the development of go-reloaded.
-
-Inspiration:
-This project was inspired by best practices in Go development and the need for automated text formatting solutions.
-
-Resources:
-
-The MIT License
-Various open-source projects and communities that encourage collaboration and learning.
-Thank you for checking out go-reloaded! We hope this tool helps streamline your text processing tasks and that you find it both useful and easy to contribute to.
-
-
