@@ -8,7 +8,7 @@ import (
 
 var (
 	errMissingInput = errors.New(`missing input. 
-expected format: go run . "text input" <banner-style>
+expected format: go run ./cmd "text input" <banner-style>
 hint: wrap multi-word input in quotes`)
 
 	errEmptyInput = errors.New(`text input cannot be empty.
