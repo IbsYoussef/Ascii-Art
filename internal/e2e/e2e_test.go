@@ -1,4 +1,4 @@
-package internal
+package e2e
 
 import (
 	"bytes"
@@ -39,5 +39,4 @@ func TestAsciiArtEndToEnd(t *testing.T) {
 	if len(content) == 0 {
 		t.Error("Output file is empty, expected ASCII art output")
 	}
-
 }
