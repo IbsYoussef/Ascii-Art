@@ -26,7 +26,7 @@ func RenderAsciiWithColor(input string, banner map[rune][]string, colorConfig Co
 		}
 
 		// Determine which characters to color
-		colorMap := buildColorMap(line, colorConfig.Substring)
+		colorMap := BuildColorMap(line, colorConfig.Substring)
 
 		// Build and print each of the 8 ASCII lines
 		for row := 0; row < 8; row++ {
@@ -55,7 +55,7 @@ func RenderAsciiWithColor(input string, banner map[rune][]string, colorConfig Co
 
 // buildColorMap determines which character indices should be colored
 // Returns a map of character index -> should color (true/false)
-func buildColorMap(line string, substring string) map[int]bool {
+func BuildColorMap(line string, substring string) map[int]bool {
 	colorMap := make(map[int]bool)
 
 	// If no substring specified, color everything

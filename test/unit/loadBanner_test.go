@@ -1,6 +1,7 @@
-package ascii
+package unit_test
 
 import (
+	"ascii-art/internal/ascii"
 	"os"
 	"path/filepath"
 	"testing"
@@ -38,7 +39,7 @@ line8
 	}
 
 	// Call the function
-	result, err := LoadBannerFile("teststyle")
+	result, err := ascii.LoadBannerFile("teststyle")
 	if err != nil {
 		t.Fatalf("LoadBannerFile returned unexpected error: %v", err)
 	}
@@ -59,7 +60,7 @@ line8
 }
 
 func TestLoadBannerFile_FileNotFound(t *testing.T) {
-	_, err := LoadBannerFile("nonexistent")
+	_, err := ascii.LoadBannerFile("nonexistent")
 	if err == nil {
 		t.Fatalf("Expected error for non-existent banner file, got nil")
 	}

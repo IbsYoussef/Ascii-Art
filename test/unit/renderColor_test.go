@@ -1,6 +1,7 @@
-package ascii
+package unit_test
 
 import (
+	"ascii-art/internal/ascii"
 	"testing"
 )
 
@@ -69,7 +70,7 @@ func TestBuildColorMap(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := buildColorMap(tt.line, tt.substring)
+			result := ascii.BuildColorMap(tt.line, tt.substring)
 
 			// Check length
 			if len(result) != len(tt.expected) {

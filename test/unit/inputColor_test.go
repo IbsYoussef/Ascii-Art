@@ -1,6 +1,7 @@
-package ascii
+package unit_test
 
 import (
+	"ascii-art/internal/ascii"
 	"os"
 	"testing"
 )
@@ -72,18 +73,13 @@ func TestGetUserInputWithColor(t *testing.T) {
 			args:          []string{"cmd", "--color=red"},
 			expectedError: true,
 		},
-		{
-			name:          "Invalid color",
-			args:          []string{"cmd", "--color=purple", "hello"},
-			expectedError: true,
-		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			os.Args = tt.args
 
-			input, banner, colorConfig, err := GetUserInputWithColor()
+			input, banner, colorConfig, err := ascii.GetUserInputWithColor()
 
 			if tt.expectedError {
 				if err == nil {

@@ -1,6 +1,7 @@
-package files
+package unit_test
 
 import (
+	"ascii-art/internal/files"
 	"fmt"
 	"os"
 	"testing"
@@ -22,7 +23,7 @@ func TestBannerLines(t *testing.T) {
 	tmpFile.Close() // Close the file so we can read it
 
 	// Run function call to read the file
-	lines, err := ReadBannerLines(tmpFile.Name())
+	lines, err := files.ReadBannerLines(tmpFile.Name())
 	if err != nil {
 		t.Fatalf("ReadBannerLines failed: %v", err)
 	}
@@ -51,7 +52,7 @@ func TestReadBannerLines_EmptyFile(t *testing.T) {
 	tmpFile.Close()
 
 	// Attempt to read file
-	_, err = ReadBannerLines(tmpFile.Name())
+	_, err = files.ReadBannerLines(tmpFile.Name())
 	if err == nil {
 		t.Fatalf("Expected error when reading empty file, got nil")
 	}
