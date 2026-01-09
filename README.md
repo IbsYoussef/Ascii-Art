@@ -44,10 +44,6 @@ It was created as part of my coding course at 01 Founders to deepen my understan
 │   ├── shadow.txt
 │   ├── standard.txt
 │   └── thinkertoy.txt
-├── build // Builder that cross-compiles and zips output
-│   ├── embedmain
-│   │   └── main.go
-│   └── main.go
 ├── cmd // Main command point to run program
 │   └── main.go
 ├── go.mod
@@ -59,27 +55,11 @@ It was created as part of my coding course at 01 Founders to deepen my understan
 │   │   ├── loadBanner_test.go
 │   │   ├── renderAscii.go
 │   │   └── renderAscii_test.go
-│   ├── asciiembed // Embedded banner logic
-│   │   ├── banners
-│   │   │   ├── shadow.txt
-│   │   │   ├── standard.txt
-│   │   │   └── thinkertoy.txt
-│   │   ├── banners.go
-│   │   ├── loadBanner.go
-│   │   └── parser.go
 │   ├── e2e // End to End integration test
 │   │   └── e2e_test.go
 │   └── files // File reading and helpers
 │       ├── readFile.go
 │       └── readFile_test.go
-└── output_tests // ASCII output test samples
-    ├── output.txt
-    ├── output2.txt
-    ├── output3.txt
-    ├── output4_shadow.txt
-    ├── output5_thinkertoy.txt
-    ├── output6_thinkertoy.txt
-    └── output7.txt
 
 12 directories, 31 files
 ```
