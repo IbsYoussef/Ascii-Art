@@ -72,8 +72,6 @@ It was created as part of my coding course at 01 Founders to deepen my understan
 - 🎨 Supports multiple banner styles (`standard`, `shadow`, `thinkertoy`)
 - 📜 Handles multi-line input using `\n` escape characters
 - 💡 Clean and modular Go codebase for easy readability and testing
-- 🧩 Embeds banner files into the binary for portability
-- ⚙️ Cross-platform builder with auto `.zip` packaging support
 
 ---
 
@@ -112,8 +110,6 @@ Here are a few enhancements I plan to add in future updates:
 - 💾 **Output to File**: Allow users to save the ASCII art output to a file of their choice using an `--output` or `-o` flag
 - 📐 **Text Alignment**: Add flags for aligning text output (`--left`, `--center`, `--right`) for better formatting control
 - 🛠 **CLI flag support** in builder (e.g., --os linux, --zip, --clean)
-- 📦 **Auto-zipping** in the build step for smoother releases
-- 🤖 **Optional GitHub/Gitea CI integration** to automate building and releasing
 
 ---
 
