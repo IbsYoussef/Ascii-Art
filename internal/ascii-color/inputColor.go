@@ -1,6 +1,7 @@
 package ascii
 
 import (
+	"ascii-art/internal/ascii"
 	"errors"
 	"os"
 	"strings"
@@ -23,7 +24,7 @@ func GetUserInputWithColor() (string, string, ColorConfig, error) {
 
 	// No arguments at all
 	if len(args) == 0 {
-		return "", "", ColorConfig{}, errMissingInput
+		return "", "", ColorConfig{}, ascii.ErrMissingInput
 	}
 
 	// Check if first argument is a color flag (with or without =)
@@ -37,7 +38,7 @@ func GetUserInputWithColor() (string, string, ColorConfig, error) {
 	}
 
 	// No color flag - use original parser
-	input, banner, err := GetUserInput()
+	input, banner, err := ascii.GetUserInput()
 	return input, banner, ColorConfig{Enabled: false}, err
 }
 
@@ -69,7 +70,7 @@ func parseWithColorFlag(args []string) (string, string, ColorConfig, error) {
 
 	// Check if last argument is a valid banner
 	lastArg := args[len(args)-1]
-	hasBanner := validBanners[lastArg]
+	hasBanner := ascii.ValidBanners[lastArg]
 
 	if hasBanner {
 		// Banner is specified
@@ -104,7 +105,7 @@ func parseWithColorFlag(args []string) (string, string, ColorConfig, error) {
 	input = strings.ReplaceAll(input, "\\n", "\n")
 
 	if input == "" {
-		return "", "", ColorConfig{}, errEmptyInput
+		return "", "", ColorConfig{}, ascii.ErrMissingInput
 	}
 
 	// Validate color format (try to parse it)

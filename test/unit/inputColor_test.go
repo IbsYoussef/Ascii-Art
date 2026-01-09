@@ -1,7 +1,7 @@
 package unit_test
 
 import (
-	"ascii-art/internal/ascii"
+	color "ascii-art/internal/ascii-color"
 	"os"
 	"testing"
 )
@@ -79,7 +79,7 @@ func TestGetUserInputWithColor(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			os.Args = tt.args
 
-			input, banner, colorConfig, err := ascii.GetUserInputWithColor()
+			input, banner, colorConfig, err := color.GetUserInputWithColor()
 
 			if tt.expectedError {
 				if err == nil {

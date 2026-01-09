@@ -1,7 +1,7 @@
 package unit_test
 
 import (
-	"ascii-art/internal/ascii"
+	color "ascii-art/internal/ascii-color"
 	"testing"
 )
 
@@ -39,7 +39,7 @@ func TestParseColor(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := ascii.ParseColor(tt.input)
+			_, err := color.ParseColor(tt.input)
 			if (err != nil) != tt.wantError {
 				t.Errorf("ParseColor(%q) error = %v, wantError %v", tt.input, err, tt.wantError)
 			}
