@@ -10,7 +10,6 @@ A CLI application written in Go that renders ASCII art using formatted banners f
 4. [🚀 Usage Instructions](#-usage-instructions)
    - [📦 Clone the Repository](#-clone-the-repository)
    - [⚙️ Run the CLI (Go Users)](#-run-the-cli-go-users)
-   - [📥 Download the Executables (Non-Go Users)](#-download-the-executables-non-go-users)
 5. [🔭 Future Plans](#-future-plans)
 6. [🤝 Contributions](#-contributions)
 7. [🙏 Acknowledgements](#-acknowledgements)
@@ -120,21 +119,6 @@ To print text on multiple lines use \n in your string input:
 
 ```bash
 go run ./cmd "Hello\nWorld" <banner-choice>
-```
-
-- ### 📥 Download the executables (Non-Go Users)
-  Precompiled .zip packages are available for each platform in the Releases tab.
-  Example .zip packages:
-- ascii-art-windows.zip
-- ascii-art-linux.zip
-- ascii-art-macos-intel.zip
-- ascii-art-macos-arm64.zip
-
-Each .zip contains a single, ready-to-run binary.
-Just extract it and run from your terminal:
-
-```bash
-./ascii-art-linux "Hello\nWorld" shadow
 ```
 
 ---
