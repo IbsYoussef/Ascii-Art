@@ -6,7 +6,6 @@ import (
 )
 
 // RenderAsciiWithColor renders ASCII art with color support
-// RenderAsciiWithColor renders ASCII art with color support
 func RenderAsciiWithColor(input string, banner map[rune][]string, colorConfig ColorConfig) {
 	// Parse the color to get ANSI code
 	ansiCode, err := ParseColor(colorConfig.Color)
