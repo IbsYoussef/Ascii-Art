@@ -20,9 +20,8 @@
    - [📦 Clone the Repository](#-clone-the-repository)
    - [⚙️ Run the CLI](#️-run-the-cli)
 5. [🔭 Future Plans](#-future-plans)
-6. [🤝 Contributions](#-contributions)
-7. [🙏 Acknowledgements](#-acknowledgements)
-8. [📄 License](#-license)
+6. [🙏 Acknowledgements](#-acknowledgements)
+7. [📄 License](#-license)
 
 ---
 
@@ -119,45 +118,11 @@ Here are a few enhancements I plan to add in future updates:
 
 ---
 
-## 🤝 Contributions
-
-Contributions are welcome! If you'd like to help improve **ASCII Art**, please follow these steps:
-
-1. **Fork the Repository:**  
-   Click the "Fork" button at the top-right of the repository page to create your own copy of the project.
-
-2. **Create a New Branch:**  
-   Create a new branch for your feature or bug fix:
-
-```bash
-   git checkout -b feature-or-bugfix-description
-```
-
-3. **Make your Changes:**  
-   Implement your changes and ensure that your code adheres to the project's style guidelines.  
-   Tip: Write or update tests as needed.
-
-4. **Commit and Push your Changes:**  
-   Commit your changes with a clear, descriptive message and push your branch to your forked repository:
-
-```bash
-   git commit -m "Add: description of your changes"
-   git push origin feature-or-bugfix-description
-```
-
-5. **Open a Pull Request:**  
-   Open a pull request (PR) from your branch to the main repository. Please include a clear description of your changes and the motivation behind them.  
-   If you're not sure about a major change, open an issue first to discuss your ideas.
-
-Thank you for helping make ASCII Art even better!
-
----
-
 ## 🙏 Acknowledgements
 
 - Created as part of my Go learning journey at 01 Founders
 - Inspired by classic ASCII art and terminal aesthetics
-- Thank you to the Go Community for excellent documentation 🙏
+- Thank you to the Go Community for excellent documentation
 
 ---
 
