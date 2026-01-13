@@ -1,15 +1,24 @@
 # ASCII-ART
 
-A CLI application written in Go that renders ASCII art using formatted banners from input text.
+<div align="center">
 
-## 📑 Table of Contents
+[![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://golang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-1. [📝 About](#-about)
+![Demo](assets/demo.gif)
+
+**Generate beautiful ASCII art from text with multiple banner styles**
+
+</div>
+
+## 📋 Table of Contents
+
+1. [🎯 About](#-about)
 2. [📁 File Structure](#-file-structure)
 3. [✨ Features](#-features)
 4. [🚀 Usage Instructions](#-usage-instructions)
    - [📦 Clone the Repository](#-clone-the-repository)
-   - [⚙️ Run the CLI (Go Users)](#-run-the-cli-go-users)
+   - [⚙️ Run the CLI (Go Users)](#️-run-the-cli-go-users)
 5. [🔭 Future Plans](#-future-plans)
 6. [🤝 Contributions](#-contributions)
 7. [🙏 Acknowledgements](#-acknowledgements)
@@ -17,20 +26,16 @@ A CLI application written in Go that renders ASCII art using formatted banners f
 
 ---
 
-## 📝 About
+## 🎯 About
 
-```
-                               _____    _____   _____   _____                    _____    _______
-                      /\      / ____|  / ____| |_   _| |_   _|           /\     |  __ \  |__   __|
-                     /  \    | (___   | |        | |     | |            /  \    | |__) |    | |
-                    / /\ \    \___ \  | |        | |     | |           / /\ \   |  _  /     | |
-                   / ____ \   ____) | | |____   _| |_   _| |_         / ____ \  | | \ \     | |
-                  /_/    \_\ |_____/   \_____| |_____| |_____|       /_/    \_\ |_|  \_\    |_|
-```
+**ASCII Art Generator** transforms text into stylized ASCII art using multiple banner templates. Built in Go as part of the **01 Founders** curriculum, this project demonstrates:
 
-This project is a command-line tool written in Go that takes user input and transforms it into styled ASCII art using various banner template styles like `standard`, `shadow`, and `thinkertoy`.
+- Clean modular architecture
+- File parsing and rendering techniques
+- Comprehensive unit and E2E testing
+- Command-line interface design
 
-It was created as part of my coding course at 01 Founders to deepen my understanding of Go, file parsing, and modular programming — all while keeping things fun and creative. The tool handles multi-line input, clean formatting, and is structured for easy extension and maintenance.
+The tool handles multi-line input, offers three distinct banner styles, and is structured for easy extension — making it both practical and fun to use.
 
 ---
 
@@ -40,28 +45,28 @@ It was created as part of my coding course at 01 Founders to deepen my understan
 .
 ├── README.md
 ├── ROADMAP.md
-├── banners // Banner files used for reading, parsing,and rendering ASCII art text
+├── banners                 // Banner files for rendering ASCII art
 │   ├── shadow.txt
 │   ├── standard.txt
 │   └── thinkertoy.txt
-├── cmd // Main command point to run program
+├── cmd                     // Main entry point
 │   └── main.go
 ├── go.mod
-├── internal
-│   ├── ascii // Core ascii logic
-│   │   ├── input.go
-│   │   ├── input_test.go
-│   │   ├── loadBanner.go
-│   │   ├── loadBanner_test.go
-│   │   ├── renderAscii.go
-│   │   └── renderAscii_test.go
-│   ├── e2e // End to End integration test
-│   │   └── e2e_test.go
-│   └── files // File reading and helpers
-│       ├── readFile.go
-│       └── readFile_test.go
+└── internal
+    ├── ascii               // Core ASCII logic
+    │   ├── input.go
+    │   ├── input_test.go
+    │   ├── loadBanner.go
+    │   ├── loadBanner_test.go
+    │   ├── renderAscii.go
+    │   └── renderAscii_test.go
+    ├── e2e                 // End-to-end integration tests
+    │   └── e2e_test.go
+    └── files               // File reading utilities
+        ├── readFile.go
+        └── readFile_test.go
 
-12 directories, 31 files
+7 directories, 17 files
 ```
 
 ---
@@ -77,23 +82,24 @@ It was created as part of my coding course at 01 Founders to deepen my understan
 
 ## 🚀 Usage Instructions
 
-- ### 📦 Clone the repository
-  First, clone the repository to your local machine:
+### 📦 Clone the repository
+
+First, clone the repository to your local machine:
 
 ```bash
 git clone https://learn.01founders.co/git/iyoussef/Ascii-Art.git
-cd ascii-art
+cd Ascii-Art
 ```
 
-- ### ⚙️ Run the CLI (Go Users)
+### ⚙️ Run the CLI (Go Users)
 
 ```bash
 go run ./cmd "Hello World" <banner-choice>
 ```
 
-You can use either `standard`, `shadow` or `thinkertoy` as you banner choice for the styling, if omitted the standard banner will be used by default.
+You can use either `standard`, `shadow` or `thinkertoy` as your banner choice for styling. If omitted, the standard banner will be used by default.
 
-To print text on multiple lines use \n in your string input:
+To print text on multiple lines, use `\n` in your string input:
 
 ```bash
 go run ./cmd "Hello\nWorld" <banner-choice>
@@ -106,49 +112,63 @@ go run ./cmd "Hello\nWorld" <banner-choice>
 Here are a few enhancements I plan to add in future updates:
 
 - 🎨 **Color Output**: Add a `--color` flag so users can stylize their ASCII art with terminal color codes (e.g., red, green, cyan, etc.)
-- 🔁 **Reverse Mode**: Option to reverse the input text before rendering it in ASCII format
+- 🔄 **Reverse Mode**: Option to reverse the input text before rendering it in ASCII format
 - 💾 **Output to File**: Allow users to save the ASCII art output to a file of their choice using an `--output` or `-o` flag
-- 📐 **Text Alignment**: Add flags for aligning text output (`--left`, `--center`, `--right`) for better formatting control
+- 📏 **Text Alignment**: Add flags for aligning text output (`--left`, `--center`, `--right`) for better formatting control
 - 🛠 **CLI flag support** in builder (e.g., --os linux, --zip, --clean)
 
 ---
 
 ## 🤝 Contributions
 
-Contributions are welcome! If you'd like to help improve **ascii-art**, please follow these steps:
+Contributions are welcome! If you'd like to help improve **ASCII Art**, please follow these steps:
 
 1. **Fork the Repository:**  
    Click the "Fork" button at the top-right of the repository page to create your own copy of the project.
 
 2. **Create a New Branch:**  
    Create a new branch for your feature or bug fix:
-   ```bash
-    git checkout -b feature-or-bugfix-description
-   ```
-3. **Make your Changes:**
-   Implement your changes and ensure that your code adheres to the project's style guidelines.
+
+```bash
+   git checkout -b feature-or-bugfix-description
+```
+
+3. **Make your Changes:**  
+   Implement your changes and ensure that your code adheres to the project's style guidelines.  
    Tip: Write or update tests as needed.
 
-4. **Commit and Push your Changes**:
+4. **Commit and Push your Changes:**  
    Commit your changes with a clear, descriptive message and push your branch to your forked repository:
-   `bash
-    git commit -m "Add: description of your changes"
-    git push origin feature-or-bugfix-description
-    `
-5. **Open a Pull Request**:
-   Open a pull request (PR) from your branch to the main repository. Please include a clear description of your changes and the motivation behind them.
+
+```bash
+   git commit -m "Add: description of your changes"
+   git push origin feature-or-bugfix-description
+```
+
+5. **Open a Pull Request:**  
+   Open a pull request (PR) from your branch to the main repository. Please include a clear description of your changes and the motivation behind them.  
    If you're not sure about a major change, open an issue first to discuss your ideas.
 
-Thank you for helping make ascii-art even better!
+Thank you for helping make ASCII Art even better!
 
 ---
 
 ## 🙏 Acknowledgements
 
 - Created as part of my Go learning journey at 01 Founders
+- Inspired by classic ASCII art and terminal aesthetics
+- Thank you to the Go Community for excellent documentation 🙏
 
 ---
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE.txt).
+
+---
+
+<div align="center">
+
+**[⬆ Back to Top](#ascii-art)**
+
+</div>
