@@ -18,7 +18,7 @@
 3. [✨ Features](#-features)
 4. [🚀 Usage Instructions](#-usage-instructions)
    - [📦 Clone the Repository](#-clone-the-repository)
-   - [⚙️ Run the CLI (Go Users)](#️-run-the-cli-go-users)
+   - [⚙️ Run the CLI](#️-run-the-cli)
 5. [🔭 Future Plans](#-future-plans)
 6. [🤝 Contributions](#-contributions)
 7. [🙏 Acknowledgements](#-acknowledgements)
@@ -91,7 +91,7 @@ git clone https://learn.01founders.co/git/iyoussef/Ascii-Art.git
 cd Ascii-Art
 ```
 
-### ⚙️ Run the CLI (Go Users)
+### ⚙️ Run the CLI
 
 ```bash
 go run ./cmd "Hello World" <banner-choice>
