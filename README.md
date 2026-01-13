@@ -17,11 +17,9 @@
 2. [📁 File Structure](#-file-structure)
 3. [✨ Features](#-features)
 4. [🚀 Usage Instructions](#-usage-instructions)
-5. [📦 Clone the Repository](#-clone-the-repository)
-6. [⚙️ Run the CLI](#️-run-the-cli)
-7. [🔭 Future Plans](#-future-plans)
-8. [🙏 Acknowledgements](#-acknowledgements)
-9. [📄 License](#-license)
+5. [🔭 Future Plans](#-future-plans)
+6. [🙏 Acknowledgements](#-acknowledgements)
+7. [📄 License](#-license)
 
 ---
 
@@ -81,7 +79,7 @@ The tool handles multi-line input, offers three distinct banner styles, and is s
 
 ## 🚀 Usage Instructions
 
-## 📦 Clone the repository
+### 📦 Clone the Repository
 
 First, clone the repository to your local machine:
 
@@ -90,7 +88,7 @@ git clone https://learn.01founders.co/git/iyoussef/Ascii-Art.git
 cd Ascii-Art
 ```
 
-## ⚙️ Run the CLI
+### ⚙️ Run the CLI
 
 ```bash
 go run ./cmd "Hello World" <banner-choice>
