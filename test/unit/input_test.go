@@ -1,6 +1,7 @@
-package ascii
+package unit_test
 
 import (
+	"ascii-art/internal/ascii"
 	"os"
 	"testing"
 )
@@ -19,12 +20,12 @@ func TestGetUserInput(t *testing.T) {
 		{
 			name:          "No input provided",
 			args:          []string{"cmd"}, // Only program name, no arguments
-			expectedError: errMissingInput,
+			expectedError: ascii.ErrMissingInput,
 		},
 		{
 			name:          "Empty input string",
 			args:          []string{"cmd", ""}, // Program name + empty string
-			expectedError: errEmptyInput,
+			expectedError: ascii.ErrEmptyInput,
 		},
 		{
 			name:           "Valid input with default banner",
@@ -41,7 +42,7 @@ func TestGetUserInput(t *testing.T) {
 		{
 			name:          "Invalid banner style",
 			args:          []string{"cmd", "Hey", "unknown"}, // Invalid banner name
-			expectedError: errInvalidBanner,
+			expectedError: ascii.ErrInvalidBanner,
 		},
 		{
 			name:           "Escaped newline in input",
@@ -69,7 +70,7 @@ func TestGetUserInput(t *testing.T) {
 			os.Args = tc.args
 
 			// Call the function under test
-			input, banner, err := GetUserInput()
+			input, banner, err := ascii.GetUserInput()
 
 			// Check expected error
 			if tc.expectedError != nil {

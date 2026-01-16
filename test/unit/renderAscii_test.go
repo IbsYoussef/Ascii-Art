@@ -1,6 +1,7 @@
-package ascii
+package unit_test
 
 import (
+	"ascii-art/internal/ascii"
 	"bytes"
 	"os"
 	"strings"
@@ -29,7 +30,7 @@ func TestRenderAscii(t *testing.T) {
 	os.Stdout = w
 
 	// Step 3: Call RenderAscii with test input
-	RenderAscii("A", mockBanner)
+	ascii.RenderAscii("A", mockBanner)
 
 	// Step 4: Read and restore stdout
 	w.Close()

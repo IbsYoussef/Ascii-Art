@@ -7,14 +7,14 @@ import (
 )
 
 var (
-	errMissingInput = errors.New(`missing input. 
+	ErrMissingInput = errors.New(`missing input. 
 expected format: go run . "text input" <banner-style>
 hint: wrap multi-word input in quotes`)
 
-	errEmptyInput = errors.New(`text input cannot be empty.
+	ErrEmptyInput = errors.New(`text input cannot be empty.
 example: go run . "Hello World" shadow`)
 
-	errInvalidBanner = errors.New(`invalid banner style.
+	ErrInvalidBanner = errors.New(`invalid banner style.
 valid banners: standard, shadow, thinkertoy
 note: if omitted, 'standard' will be used by default`)
 )
@@ -32,7 +32,7 @@ func GetUserInput() (string, string, error) {
 
 	// Check if we have at least one argument (text input)
 	if len(args) < 1 {
-		return "", "", errMissingInput
+		return "", "", ErrMissingInput
 	}
 
 	// First argument is the text input
@@ -40,7 +40,7 @@ func GetUserInput() (string, string, error) {
 	input = strings.ReplaceAll(input, "\\n", "\n")
 
 	if input == "" {
-		return "", "", errEmptyInput
+		return "", "", ErrEmptyInput
 	}
 
 	// Default banner is the standard banner
@@ -50,7 +50,7 @@ func GetUserInput() (string, string, error) {
 	if len(args) >= 2 {
 		banner = args[1]
 		if !validBanners[banner] {
-			return "", "", errInvalidBanner
+			return "", "", ErrInvalidBanner
 		}
 	}
 
