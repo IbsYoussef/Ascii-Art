@@ -19,7 +19,7 @@ valid banners: standard, shadow, thinkertoy
 note: if omitted, 'standard' will be used by default`)
 )
 
-var validBanners = map[string]bool{
+var ValidBanners = map[string]bool{
 	"standard":   true,
 	"shadow":     true,
 	"thinkertoy": true,
@@ -49,7 +49,7 @@ func GetUserInput() (string, string, error) {
 	// If second argument exists, it's the banner
 	if len(args) >= 2 {
 		banner = args[1]
-		if !validBanners[banner] {
+		if !ValidBanners[banner] {
 			return "", "", ErrInvalidBanner
 		}
 	}
