@@ -19,9 +19,10 @@
 4. [🚀 Usage Instructions](#-usage-instructions)
 5. [🎨 Color Support](#-color-support)
 6. [📚 Examples](#-examples)
-7. [🧪 Testing](#-testing)
-8. [🙏 Acknowledgements](#-acknowledgements)
-9. [📄 License](#-license)
+7. [🔭 Future Plans](#-future-plans)
+8. [🧪 Testing](#-testing)
+9. [🙏 Acknowledgements](#-acknowledgements)
+10. [📄 License](#-license)
 
 ---
 
@@ -217,7 +218,14 @@ go run ./cmd --color=rgb(0,255,255) "Test"
 go run ./cmd --color=hsl(240,100%,50%) "Test"
 ```
 
----
+## 🔭 Future Plans
+
+Here are a few enhancements planned for future updates:
+
+- 🔄 **Reverse Mode**: Option to reverse the input text before rendering it in ASCII format
+- 💾 **Output to File**: Allow users to save the ASCII art output to a file of their choice using an `--output` or `-o` flag
+- 📏 **Text Alignment**: Add flags for aligning text output (`--left`, `--center`, `--right`) for better formatting control
+- 🎯 **Text Justification**: Justify text to specific width with proper word wrapping
 
 ## 🧪 Testing
 
