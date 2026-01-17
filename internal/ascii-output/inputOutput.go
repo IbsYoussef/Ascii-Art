@@ -1,7 +1,6 @@
 package asciioutput
 
 import (
-	"errors"
 	"strings"
 )
 
@@ -36,20 +35,20 @@ func ParseOutputFlag(args []string) (string, []string, error) {
 func ValidateOutputFlag(flag string) (string, error) {
 	// Check prefix
 	if !strings.HasPrefix(flag, "--output=") {
-		return "", errors.New("invalid output flag format")
+		return "", ErrInvalidOutputFormat
 	}
 
 	// Extract filename after "="
 	parts := strings.SplitN(flag, "=", 2)
 	if len(parts) != 2 {
-		return "", errors.New("invalid output flag format: missing filename")
+		return "", ErrMissingFilename
 	}
 
 	filename := parts[1]
 
 	// Validate filename is not empty
 	if strings.TrimSpace(filename) == "" {
-		return "", errors.New("invalid output flag format: filename cannot be empty")
+		return "", ErrEmptyFilename
 	}
 
 	return filename, nil

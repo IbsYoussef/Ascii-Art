@@ -1,7 +1,6 @@
 package asciioutput
 
 import (
-	"fmt"
 	"os"
 )
 
@@ -9,18 +8,18 @@ import (
 // If the file exists, it will be overwritten
 // Returns error if file creation or writing fails
 func WriteToFile(filename, content string) error {
-	// Create orr truncate the file
+	// Create or truncate the file
 	// 0644 permissions: owner can read/write, others can read
 	file, err := os.Create(filename)
 	if err != nil {
-		return fmt.Errorf("failed to create file: %q: %w", filename, err)
+		return WrapFileCreateError(filename, err)
 	}
 	defer file.Close()
 
-	// Write to content
+	// Write content to file
 	_, err = file.WriteString(content)
 	if err != nil {
-		return fmt.Errorf("failed to write to file %q: %w", filename, err)
+		return WrapFileWriteError(filename, err)
 	}
 
 	return nil
