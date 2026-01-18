@@ -88,7 +88,7 @@ Add vibrant colors to your ASCII art with multiple color format support.
 
 **Color Formats:**
 
-- **Named Colors**: `red`, `blue`, `green`, `yellow`, `orange`, `purple`, `pink`, `cyan`, `magenta`, `white`, `black`, `gray`
+- **Named Colors**: `red`, `blue`, `green`, `yellow`, `orange`, `pink`, `cyan`, `magenta`, `white`, `black`, `gray`
 - **Hex Colors**: `#FF5733`, `#00FF00`, `#3498DB`
 - **RGB Colors**: `rgb(255,87,51)`, `rgb(0,255,255)`
 - **HSL Colors**: `hsl(9,100%,60%)`, `hsl(120,100%,50%)`
