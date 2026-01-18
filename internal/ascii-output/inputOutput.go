@@ -14,6 +14,7 @@ func ParseOutputFlag(args []string) (string, []string, error) {
 	var remainingArgs []string
 
 	for _, arg := range args {
+		// Check for valid --output= format
 		if strings.HasPrefix(arg, "--output=") {
 			// Extract filename from flag
 			filename, err := ValidateOutputFlag(arg)
@@ -21,6 +22,12 @@ func ParseOutputFlag(args []string) (string, []string, error) {
 				return "", nil, err
 			}
 			outputFile = filename
+		} else if arg == "--output" || strings.HasPrefix(arg, "--output") && !strings.HasPrefix(arg, "--output=") {
+			// Catches: --output (no value) or --output<anything-without-equals>
+			return "", nil, ErrInvalidOutputFormat
+		} else if strings.HasPrefix(arg, "-output=") {
+			// Catches: -output= (single dash)
+			return "", nil, ErrInvalidOutputFormat
 		} else {
 			// Keep non-output args
 			remainingArgs = append(remainingArgs, arg)
