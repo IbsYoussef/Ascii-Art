@@ -6,17 +6,21 @@ import (
 	"strings"
 )
 
+const Usage = `Usage: go run ./cmd [STRING] [BANNER]
+
+EX: go run ./cmd "hello" standard`
+
 var (
-	ErrMissingInput = errors.New(`missing input. 
-expected format: go run . "text input" <banner-style>
-hint: wrap multi-word input in quotes`)
+	ErrMissingInput = errors.New(Usage)
 
-	ErrEmptyInput = errors.New(`text input cannot be empty.
-example: go run . "Hello World" shadow`)
+	ErrEmptyInput = errors.New(`text input cannot be empty
+` + Usage)
 
-	ErrInvalidBanner = errors.New(`invalid banner style.
+	ErrInvalidBanner = errors.New(`invalid banner style
 valid banners: standard, shadow, thinkertoy
-note: if omitted, 'standard' will be used by default`)
+note: if omitted, 'standard' will be used by default
+
+` + Usage)
 )
 
 var ValidBanners = map[string]bool{
