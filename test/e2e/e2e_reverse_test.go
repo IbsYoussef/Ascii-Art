@@ -291,8 +291,26 @@ func TestReverseE2E(t *testing.T) {
 		t.Errorf("Test failed")
 	}
 
-	fmt.Printf("%s⏭️  SKIPPED TEST #%d: Thinkertoy banner (known issue - needs debugging)%s\n\n", colorYellow, testNum, colorReset)
+	// Test 12: Thinkertoy banner
+	printTestHeader(testNum, "Reverse with thinkertoy banner")
 	testNum++
+
+	inputText = "Think"
+	thinkerArt := generateAsciiArt(t, inputText, "thinkertoy")
+	testFile = filepath.Join(tempDir, "thinkertoy.txt")
+	err = os.WriteFile(testFile, []byte(thinkerArt), 0644)
+	if err != nil {
+		t.Fatalf("Failed to create test file: %v", err)
+	}
+
+	fmt.Printf("%s📝 Input:%s       ASCII art file (thinkertoy banner) containing '%s'\n", colorCyan, colorReset, inputText)
+	result = runReverse(t, testFile)
+	expected = "Think"
+	passed = result == expected
+	printTestResult(passed, expected, result)
+	if !passed {
+		t.Errorf("Test failed")
+	}
 
 	// Test 13: Multiline text
 	printTestHeader(testNum, "Reverse multiline text")

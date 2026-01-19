@@ -11,9 +11,16 @@ type CharacterTemplate struct {
 }
 
 // LoadBannerTemplates loads the banner file and creates a map of character patterns
-// Returns a map where key is the character abd value is its 8-line ASCII pattern
+// Returns a map where key is the character and value is its 8-line ASCII pattern
 func LoadBannerTemplates(bannerContent string) (map[rune][]string, error) {
 	templates := make(map[rune][]string)
+
+	// Replace line endings with Unix line endings (LF)
+	// This handles banners that may have been created on Windows
+	bannerContent = strings.ReplaceAll(bannerContent, "\r\n", "\n")
+
+	// Also remove any remaining \r characters
+	bannerContent = strings.ReplaceAll(bannerContent, "\r", "")
 
 	// Split banner content into lines
 	lines := strings.Split(bannerContent, "\n")
@@ -46,6 +53,8 @@ func LoadBannerTemplates(bannerContent string) (map[rune][]string, error) {
 	return templates, nil
 }
 
+// GetCharacterWidth calculates the width of a character pattern
+// Returns the length of the first non-empty line
 func GetCharacterWidth(pattern []string) int {
 	for _, line := range pattern {
 		if len(line) > 0 {
