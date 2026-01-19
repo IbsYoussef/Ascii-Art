@@ -6,6 +6,7 @@ import (
 )
 
 // RecogniseText takes ASCII art chunks and banner templates, and returns the recognized text
+// Handles variable-width characters by trying to match each character from the templates
 func RecogniseText(chunks [][]string, templates map[rune][]string) (string, error) {
 	var result strings.Builder
 
@@ -15,22 +16,78 @@ func RecogniseText(chunks [][]string, templates map[rune][]string) (string, erro
 			return "", fmt.Errorf("invalid chunk at index %d: expected 8 lines, got %d", chunkIdx, len(chunk))
 		}
 
-		// Determine character width from templates (using space character as reference)
-		charWidth := GetCharacterWidth(templates[' '])
-		if charWidth == 0 {
-			return "", fmt.Errorf("invalid character width: cannot be 0")
+		// Find the maximum line length in the chunk
+		maxLen := 0
+		for _, line := range chunk {
+			if len(line) > maxLen {
+				maxLen = len(line)
+			}
 		}
 
-		// Split chunk into individual character patterns
-		characterPatterns := SplitChunkIntoCharacters(chunk, charWidth)
+		// If chunk is empty, skip it
+		if maxLen == 0 {
+			continue
+		}
 
-		// Recognize each character pattern
-		for _, pattern := range characterPatterns {
-			char, err := RecogniseCharacter(pattern, templates)
-			if err != nil {
-				return "", fmt.Errorf("failed to recognize character: %w", err)
+		// Process characters by trying to match at each position
+		pos := 0
+		for pos < maxLen {
+			// Try to match each character in templates
+			matched := false
+			var matchedChar rune
+			matchLen := 0
+
+			// Try all characters from templates
+			for char, template := range templates {
+				charWidth := GetCharacterWidth(template)
+				if charWidth == 0 {
+					continue
+				}
+
+				// Extract pattern at current position with this width
+				if pos+charWidth > maxLen {
+					// This character would extend beyond the line, try smaller widths
+					continue
+				}
+
+				pattern := make([]string, 8)
+				for i := 0; i < 8; i++ {
+					if pos < len(chunk[i]) {
+						endPos := pos + charWidth
+						if endPos <= len(chunk[i]) {
+							pattern[i] = chunk[i][pos:endPos]
+						} else {
+							// Pad with spaces
+							pattern[i] = chunk[i][pos:]
+							for len(pattern[i]) < charWidth {
+								pattern[i] += " "
+							}
+						}
+					} else {
+						pattern[i] = strings.Repeat(" ", charWidth)
+					}
+				}
+
+				// Try to match this pattern
+				normalizedPattern := NormalizePattern(pattern)
+				normalizedTemplate := NormalizePattern(template)
+
+				if ComparePatterns(normalizedPattern, normalizedTemplate) {
+					// Found a match!
+					matched = true
+					matchedChar = char
+					matchLen = charWidth
+					break
+				}
 			}
-			result.WriteRune(char)
+
+			if matched {
+				result.WriteRune(matchedChar)
+				pos += matchLen
+			} else {
+				// No match found - this is an error
+				return "", fmt.Errorf("failed to recognise character at position %d", pos)
+			}
 		}
 
 		// Add newline between chunks (except for last chunk)

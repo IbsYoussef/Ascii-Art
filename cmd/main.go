@@ -4,13 +4,23 @@ import (
 	"ascii-art/internal/ascii"
 	color "ascii-art/internal/ascii-color"
 	output "ascii-art/internal/ascii-output"
+	reverse "ascii-art/internal/ascii-reverse"
 	"fmt"
 	"os"
 )
 
 func main() {
-	// Parse --output flag first
-	outputFile, remainingArgs, err := output.ParseOutputFlag(os.Args[1:])
+	// Obtain user arguements from command line
+	args := os.Args[1:]
+
+	// Priority 1: Check for --reverse flag first (takes precendence over everything)
+	if reverse.HasReverseFlag(args) {
+		reverse.HandleReverse(args)
+		return
+	}
+
+	// Priority 2: Parse --output flag
+	outputFile, remainingArgs, err := output.ParseOutputFlag(args)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -21,7 +31,7 @@ func main() {
 	originalArgs := os.Args
 	os.Args = append([]string{os.Args[0]}, remainingArgs...)
 
-	// Get user input and banner choice
+	// Priority 3: Get user input and banner choice
 	input, banner, colorConfig, err := color.GetUserInputWithColor()
 
 	// Restore original args
@@ -39,7 +49,7 @@ func main() {
 		return
 	}
 
-	// Create render function that will be executed
+	// Create the render function that will be executed
 	renderFunc := func() {
 		if colorConfig.Enabled {
 			color.RenderAsciiWithColor(input, result, colorConfig)
@@ -48,7 +58,6 @@ func main() {
 		}
 	}
 
-	// Handle output routing (to file or stdout)
 	err = output.HandleOutput(outputFile, renderFunc)
 	if err != nil {
 		fmt.Println(err)

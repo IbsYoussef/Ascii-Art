@@ -40,7 +40,7 @@ func HandleReverse(args []string) {
 		text, err := RecogniseTextWithBanner(asciiArtContent, bannerContent)
 		if err == nil {
 			// Successfully recognized! Print and exit
-			fmt.Print(text)
+			fmt.Println(text)
 			return
 		}
 	}
