@@ -38,6 +38,7 @@ A lightweight CLI tool that renders text as ASCII art. Choose from multiple font
 - 🎨 Multiple banner styles (standard, shadow, thinkertoy)
 - 🌈 Full RGB/HSL/Hex color support with substring coloring
 - 💾 Save output directly to files
+- 🔄 Reverse ASCII art back to original text
 - 🧪 100% test coverage with unit and E2E tests
 - 📦 Zero dependencies - uses only Go standard library
 
@@ -180,6 +181,67 @@ go run ./cmd --output=rainbow.txt --color=blue Art "ASCII Art" shadow
 
 ---
 
+### 🔄 Reverse Feature
+
+Convert ASCII art back to its original text with automatic banner detection.
+
+<img src="assets/demo_reverse.gif" width="1000" height="650" alt="Reverse Demo">
+
+**Features:**
+
+- ✨ Automatic banner detection (standard, shadow, thinkertoy)
+- 📝 Multiline text support
+- 🔢 Numbers and special characters
+- 🔄 Variable-width character handling
+- 🖥️ Windows/Unix line ending support
+
+**Basic Usage:**
+
+```bash
+# Step 1: Generate ASCII art
+go run ./cmd "Hello World" standard > output.txt
+
+# Step 2: Reverse it back to text
+go run ./cmd --reverse=output.txt
+# Output: Hello World
+```
+
+**How it Works:**
+
+1. Parses ASCII art into 8-line character chunks
+2. Loads banner character templates
+3. Matches patterns against all available banners
+4. Returns the recognized text with preserved formatting
+
+**Advanced Examples:**
+
+```bash
+# Works with all banner types (auto-detected)
+go run ./cmd "Shadow Text" shadow > shadow.txt
+go run ./cmd --reverse=shadow.txt
+# Output: Shadow Text
+
+# Multiline text
+go run ./cmd "Line1\nLine2" standard > multi.txt
+go run ./cmd --reverse=multi.txt
+# Output: Line1
+#         Line2
+
+# Special characters and numbers
+go run ./cmd "2024!" thinkertoy > year.txt
+go run ./cmd --reverse=year.txt
+# Output: 2024!
+```
+
+**Reverse Feature Notes:**
+
+- Automatically detects which banner was used
+- Supports standard, shadow, and thinkertoy banners
+- Cannot reverse colored ASCII art (ANSI codes interfere with pattern matching)
+- Preserves newlines and formatting
+
+---
+
 ## 🚀 Quick Start
 
 ### Installation
@@ -208,7 +270,10 @@ go run ./cmd --color=<color> "Your Text" <banner>
 # Save to file
 go run ./cmd --output=<file.txt> "Your Text" <banner>
 
-# All together
+# Reverse ASCII art
+go run ./cmd --reverse=
+
+# All together (except reverse)
 go run ./cmd --output=art.txt --color=red "Your Text" shadow
 ```
 
@@ -229,6 +294,7 @@ go run ./cmd [OPTIONS] [STRING] [BANNER]
 - `--color=<color>` - Apply color to text
 - `--color=<color> <substring>` - Color specific substring
 - `--output=<filename>` - Save output to file
+- `--reverse=<filename>` - Convert ASCII art back to text
 
 **Arguments:**
 
@@ -283,21 +349,37 @@ go run ./cmd --output=output.txt "Save Me" standard
 go run ./cmd --output=colored.txt --color=red "Colored" shadow
 ```
 
-**Example 6: Multi-line Text**
+**Example 6: Reverse ASCII Art**
+
+```bash
+# Generate and save ASCII art
+go run ./cmd "Test" standard > test.txt
+
+# Reverse it back
+go run ./cmd --reverse=test.txt
+# Output: Test
+
+# Works with any banner (auto-detected)
+go run ./cmd "Shadow" shadow > shadow.txt
+go run ./cmd --reverse=shadow.txt
+# Output: Shadow
+```
+
+**Example 7: Multi-line Text**
 
 ```bash
 go run ./cmd "Line One\nLine Two" standard
 go run ./cmd --color=blue "First\nSecond" shadow
 ```
 
-**Example 7: Special Characters**
+**Example 8: Special Characters**
 
 ```bash
 go run ./cmd "123!@#" standard
 go run ./cmd --color=yellow "Numbers: 456" thinkertoy
 ```
 
-**Example 8: Combining Features**
+**Example 9: Combining Features**
 
 ```bash
 # Color + Output
@@ -332,7 +414,12 @@ go run ./cmd --color test "Hello"
 # Invalid output flag
 go run ./cmd --output test.txt "Hello"
 # Output: Usage: go run ./cmd [OPTION] [STRING] [BANNER]
-#         EX: go run ./cmd --output=<fileName.txt> something standard
+#         EX: go run ./cmd --output= something standard
+
+# Invalid reverse flag
+go run ./cmd --reverse example.txt
+# Output: Usage: go run ./cmd [OPTION]
+#         EX: go run ./cmd --reverse=
 ```
 
 ---
@@ -349,7 +436,8 @@ Ascii-Art/
 │   ├── demo.gif                # Original project demo
 │   ├── demo_standard.gif       # Standard features demo
 │   ├── demo_color.gif          # Color features demo
-│   └── demo_output.gif         # Output features demo
+│   ├── demo_output.gif         # Output features demo
+│   └── demo_reverse.gif        # Reverse features demo
 ├── banners/
 │   ├── standard.txt            # Standard banner font
 │   ├── shadow.txt              # Shadow banner font
@@ -370,8 +458,22 @@ Ascii-Art/
 │   │   ├── inputOutput.go      # Output flag parsing
 │   │   ├── fileWriter.go       # File writing logic
 │   │   └── outputHandler.go    # Output routing & capture
+│   ├── ascii-reverse/          # Reverse feature module
+│   │   ├── errors.go           # Error definitions
+│   │   ├── fileReader.go       # File reading utilities
+│   │   ├── inputReverse.go     # Reverse flag parsing
+│   │   ├── parser.go           # ASCII art parsing
+│   │   ├── recogniser.go       # Pattern recognition
+│   │   ├── templateLoader.go   # Banner template loading
+│   │   └── reverseHandler.go   # Main reverse handler
 │   └── files/
 │       └── readFile.go         # File reading utilities
+├── scripts/                    # Demo scripts
+│   ├── demo_all.sh             # Master demo script
+│   ├── demo_standard.sh        # Standard features
+│   ├── demo_color.sh           # Color features
+│   ├── demo_output.sh          # Output features
+│   └── demo_reverse.sh         # Reverse features
 └── test/
     ├── unit/                   # Unit tests
     │   ├── color_test.go
@@ -383,11 +485,18 @@ Ascii-Art/
     │   ├── renderAscii_test.go
     │   ├── renderColor_test.go
     │   ├── fileWriter_test.go
-    │   └── outputHandler_test.go
+    │   ├── outputHandler_test.go
+    │   ├── fileReader_test.go
+    │   ├── inputReverse_test.go
+    │   ├── parser_test.go
+    │   ├── recogniser_test.go
+    │   ├── templateLoader.go
+    │   └── test_helpers.go
     └── e2e/                    # End-to-end tests
         ├── e2e_test.go
         ├── e2e_color_test.go
-        └── e2e_output_test.go
+        ├── e2e_output_test.go
+        └── e2e_reverse_test.go
 ```
 
 ### Architecture Overview
@@ -397,6 +506,7 @@ Ascii-Art/
 - `internal/ascii/` - Core ASCII art generation
 - `internal/ascii-color/` - Color feature expansion
 - `internal/ascii-output/` - File output feature
+- `internal/ascii-reverse/` - Reverse text recognition
 - `internal/files/` - Shared file utilities
 
 **Key Design Principles:**
@@ -423,6 +533,10 @@ go test -v ./test/unit/
 # Run E2E tests only
 go test -v ./test/e2e/
 
+# Run specific feature tests
+go test -v ./test/unit/recogniser_test.go      # Reverse feature
+go test -v ./test/e2e/e2e_reverse_test.go      # Reverse E2E
+
 # Run with coverage
 go test -v -cover ./...
 
@@ -444,6 +558,11 @@ go tool cover -html=coverage.out
 - ✅ Output flag parsing
 - ✅ File writing operations
 - ✅ Output capture and routing
+- ✅ Reverse flag parsing 
+- ✅ ASCII art file reading 
+- ✅ ASCII art parsing into chunks 
+- ✅ Pattern recognition and matching 
+- ✅ Template loading with CRLF support 
 
 **E2E Tests:**
 
@@ -454,14 +573,17 @@ go tool cover -html=coverage.out
 - ✅ Substring coloring
 - ✅ File output creation
 - ✅ Combined features (color + output)
+- ✅ Reverse feature (13 comprehensive tests) 
+- ✅ Auto banner detection 
+- ✅ Multiline reverse 
 - ✅ Error handling and usage messages
 
 **Test Statistics:**
 
-- Total test files: 13
-- Unit tests: 10 files
-- E2E tests: 3 files
-- Coverage: ~95%
+- Total test files: 17 (13 unit + 4 E2E)
+- Reverse feature: 13/13 tests passing (100% ✅)
+- Overall coverage: ~95%
+
 
 ---
 
@@ -474,12 +596,9 @@ go tool cover -html=coverage.out
 - ✅ v1.0.0 - Core ASCII art generation
 - ✅ v1.1.0 - Color support (named, hex, RGB, HSL)
 - ✅ v1.2.0 - Output to file support
+- ✅ v1.3.0 - Reverse feature (ASCII art -> text)
 
 ### Future Enhancements
-
-**Planned for v1.3.0:**
-
-- 🔄 **Reverse Mode** - `--reverse` flag to reverse input text before rendering
 
 **Planned for v1.4.0:**
 
