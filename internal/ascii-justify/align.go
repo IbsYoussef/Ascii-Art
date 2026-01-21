@@ -77,7 +77,18 @@ func JustifyAlign(lines []string, termWidth int) []string {
 
 // JustifyChunk justifies a single 8-line chunk (one line of text)
 // This extracts individual words and distributes them evenly across terminal width
+// JustifyChunk justifies a single 8-line chunk (one line of text)
+// This extracts individual words and distributes them evenly across terminal width
 func JustifyChunk(chunk []string, termWidth int) []string {
+	// ========================================
+	// TUNING VARIABLES - Adjust these to fine-tune justify spacing
+	// ========================================
+	const (
+		marginPercent    = 8  // Margin on each side (%) - higher = words closer to center
+		maxSpacingPerGap = 45 // Maximum spaces between words - lower = tighter, higher = more spread
+	)
+	// ========================================
+
 	if len(chunk) != 8 {
 		return CenterAlign(chunk, termWidth)
 	}
@@ -97,15 +108,12 @@ func JustifyChunk(chunk []string, termWidth int) []string {
 		totalWordWidth += wordWidth
 	}
 
-	// Step 3: Apply margin (10% on each side = 80% usable width)
-	// This prevents text from stretching to extreme edges
-	marginPercent := 1
+	// Step 3: Apply margin
 	margin := (termWidth * marginPercent) / 100
 	usableWidth := termWidth - (2 * margin)
 
 	// Check if content fits in usable width
 	if totalWordWidth >= usableWidth {
-		// Content too wide for usable width, just center it
 		return CenterAlign(chunk, termWidth)
 	}
 
@@ -116,15 +124,16 @@ func JustifyChunk(chunk []string, termWidth int) []string {
 	}
 
 	// Step 5: Distribute space between words
-	gaps := len(words) - 1 // Number of gaps between words
+	gaps := len(words) - 1
 	if gaps <= 0 {
 		return CenterAlign(chunk, termWidth)
 	}
 
 	spacePerGap := availableSpace / gaps
-	// Add this check:
-	maxSpacing := 15 // Maximum 15 spaces between words
-	if spacePerGap > maxSpacing {
+
+	// Step 5a: Check if spacing exceeds maximum allowed
+	if spacePerGap > maxSpacingPerGap {
+		// Spacing too wide, center instead
 		return CenterAlign(chunk, termWidth)
 	}
 
