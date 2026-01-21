@@ -27,12 +27,12 @@ func ApplyAlignment(asciiLines []string, alignType string, terminalWidth int) []
 func CenterAlign(lines []string, termWidth int) []string {
 	result := make([]string, len(lines))
 	for i, line := range lines {
-		lindeWidth := len(line)
-		if lindeWidth >= termWidth {
+		lineWidth := len(line)
+		if lineWidth >= termWidth {
 			result[i] = line
 			continue
 		}
-		padding := (termWidth - lindeWidth) / 2
+		padding := (termWidth - lineWidth) / 2
 		result[i] = strings.Repeat(" ", padding) + line
 	}
 	return result
@@ -57,7 +57,7 @@ func RightAlign(lines []string, termWidth int) []string {
 // For ASCII art, each group of 8 lines represents one line of text
 func JustifyAlign(lines []string, termWidth int) []string {
 	// Justify works on groups of 8 lines (one text line = 8 ASCII art lines)
-	// We need to process each group seperately
+	// We need to process each group separately
 
 	result := make([]string, 0, len(lines))
 
@@ -75,8 +75,8 @@ func JustifyAlign(lines []string, termWidth int) []string {
 	return result
 }
 
-// justifyChunk justifies a single 8-line chunk (one line of text)
-// For now, we'll implement basic justify that distributes space
+// JustifyChunk justifies a single 8-line chunk (one line of text)
+// This extracts individual words and distributes them evenly across terminal width
 func JustifyChunk(chunk []string, termWidth int) []string {
 	if len(chunk) != 8 {
 		return CenterAlign(chunk, termWidth)
@@ -97,26 +97,45 @@ func JustifyChunk(chunk []string, termWidth int) []string {
 		totalWordWidth += wordWidth
 	}
 
-	// Step 3: Calculate available space for gaps
-	availableSpace := termWidth - totalWordWidth
-	if availableSpace <= 0 {
-		// Content too wide, just center it
+	// Step 3: Apply margin (10% on each side = 80% usable width)
+	// This prevents text from stretching to extreme edges
+	marginPercent := 1
+	margin := (termWidth * marginPercent) / 100
+	usableWidth := termWidth - (2 * margin)
+
+	// Check if content fits in usable width
+	if totalWordWidth >= usableWidth {
+		// Content too wide for usable width, just center it
 		return CenterAlign(chunk, termWidth)
 	}
 
-	// Step 4: Distribute space between words
+	// Step 4: Calculate available space for gaps
+	availableSpace := usableWidth - totalWordWidth
+	if availableSpace <= 0 {
+		return CenterAlign(chunk, termWidth)
+	}
+
+	// Step 5: Distribute space between words
 	gaps := len(words) - 1 // Number of gaps between words
 	if gaps <= 0 {
 		return CenterAlign(chunk, termWidth)
 	}
 
 	spacePerGap := availableSpace / gaps
+	// Add this check:
+	maxSpacing := 15 // Maximum 15 spaces between words
+	if spacePerGap > maxSpacing {
+		return CenterAlign(chunk, termWidth)
+	}
+
 	extraSpace := availableSpace % gaps
 
-	// Step 5: Build justified output by combining words with calculated spacing
+	// Step 6: Build justified output by combining words with calculated spacing
 	result := make([]string, 8)
 	for row := 0; row < 8; row++ {
-		line := ""
+		// Start with left margin
+		line := strings.Repeat(" ", margin)
+
 		for wordIdx, word := range words {
 			// Add the word's row
 			if row < len(word) {

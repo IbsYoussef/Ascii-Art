@@ -3,6 +3,7 @@ package main
 import (
 	"ascii-art/internal/ascii"
 	color "ascii-art/internal/ascii-color"
+	justify "ascii-art/internal/ascii-justify"
 	output "ascii-art/internal/ascii-output"
 	reverse "ascii-art/internal/ascii-reverse"
 	"fmt"
@@ -19,19 +20,25 @@ func main() {
 		return
 	}
 
-	// Priority 2: Parse --output flag
-	outputFile, remainingArgs, err := output.ParseOutputFlag(args)
+	// Priority 2: Parse --align flag
+	alignType, remainingArgs, err := justify.ParseAlignFlag(args)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// Priority 3: Parse --output flag
+	outputFile, remainingArgs, err := output.ParseOutputFlag(remainingArgs)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
 	// Temporarily replace os.Args with remaining args for color parsing
-	// This allows GetUserInputWithColor to work as if --output flag wasn't there
 	originalArgs := os.Args
 	os.Args = append([]string{os.Args[0]}, remainingArgs...)
 
-	// Priority 3: Get user input and banner choice
+	// Priority 4: Get User input and banner choice
 	input, banner, colorConfig, err := color.GetUserInputWithColor()
 
 	// Restore original args
@@ -58,9 +65,20 @@ func main() {
 		}
 	}
 
-	err = output.HandleOutput(outputFile, renderFunc)
-	if err != nil {
-		fmt.Println(err)
-		return
+	// Handle output with alignment
+	if outputFile != "" {
+		// If output flag is set, write to file (alignment not applied to file output)
+		err = output.HandleOutput(outputFile, renderFunc)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	} else {
+		// No output file, apply alignment to stdout
+		err = justify.HandleJustify(renderFunc, alignType)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 	}
 }
