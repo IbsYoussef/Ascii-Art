@@ -31,7 +31,7 @@ func TestLoadBannerTemplates(t *testing.T) {
 		},
 		{
 			name:          "load banner with multiple characters",
-			bannerContent: "\n      \n      \n      \n      \n      \n      \n      \n      \n _  \n| | \n| | \n| | \n|_| \n(_) \n    \n    \n",
+			bannerContent: "\n      \n      \n      \n      \n      \n      \n      \n      \n\n _  \n| | \n| | \n| | \n|_| \n(_) \n    \n    \n",
 			wantChars:     []rune{' ', '!'},
 			checkPattern:  '!',
 			wantPattern: []string{

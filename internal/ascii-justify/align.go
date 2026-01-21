@@ -78,14 +78,157 @@ func JustifyAlign(lines []string, termWidth int) []string {
 // justifyChunk justifies a single 8-line chunk (one line of text)
 // For now, we'll implement basic justify that distributes space
 func JustifyChunk(chunk []string, termWidth int) []string {
-	if len(chunk) == 0 {
-		return chunk
+	if len(chunk) != 8 {
+		return CenterAlign(chunk, termWidth)
 	}
 
-	// For single-word lines or lines that already fit, center them instead
-	// Full justify implementation will come in a later refinement
-	// For now, use center alignment as a placeholder
-	return CenterAlign(chunk, termWidth)
+	// Step 1: Extract individual words from the ASCII art chunk
+	words := extractWords(chunk)
+
+	// If only one word or no words, center it instead
+	if len(words) <= 1 {
+		return CenterAlign(chunk, termWidth)
+	}
+
+	// Step 2: Calculate total width of all words
+	totalWordWidth := 0
+	for _, word := range words {
+		wordWidth := getWordWidth(word)
+		totalWordWidth += wordWidth
+	}
+
+	// Step 3: Calculate available space for gaps
+	availableSpace := termWidth - totalWordWidth
+	if availableSpace <= 0 {
+		// Content too wide, just center it
+		return CenterAlign(chunk, termWidth)
+	}
+
+	// Step 4: Distribute space between words
+	gaps := len(words) - 1 // Number of gaps between words
+	if gaps <= 0 {
+		return CenterAlign(chunk, termWidth)
+	}
+
+	spacePerGap := availableSpace / gaps
+	extraSpace := availableSpace % gaps
+
+	// Step 5: Build justified output by combining words with calculated spacing
+	result := make([]string, 8)
+	for row := 0; row < 8; row++ {
+		line := ""
+		for wordIdx, word := range words {
+			// Add the word's row
+			if row < len(word) {
+				line += word[row]
+			}
+
+			// Add spacing after word (except for last word)
+			if wordIdx < len(words)-1 {
+				spacing := spacePerGap
+				// Distribute extra space to first few gaps
+				if wordIdx < extraSpace {
+					spacing++
+				}
+				line += strings.Repeat(" ", spacing)
+			}
+		}
+		result[row] = line
+	}
+
+	return result
+}
+
+// extractWords splits an 8-line ASCII art chunk into individual words
+// Returns a slice of words, where each word is represented as 8 lines
+func extractWords(chunk []string) [][]string {
+	if len(chunk) != 8 {
+		return nil
+	}
+
+	// Find the maximum width
+	maxWidth := 0
+	for _, line := range chunk {
+		if len(line) > maxWidth {
+			maxWidth = len(line)
+		}
+	}
+
+	if maxWidth == 0 {
+		return nil
+	}
+
+	// Pad all lines to same width with spaces
+	paddedChunk := make([]string, 8)
+	for i, line := range chunk {
+		if len(line) < maxWidth {
+			paddedChunk[i] = line + strings.Repeat(" ", maxWidth-len(line))
+		} else {
+			paddedChunk[i] = line
+		}
+	}
+
+	// Detect word boundaries by finding columns that are all spaces
+	words := make([][]string, 0)
+	currentWord := make([]string, 8)
+	inWord := false
+	consecutiveSpaces := 0
+
+	for col := 0; col < maxWidth; col++ {
+		// Check if this column is all spaces across all 8 rows
+		allSpaces := true
+		for row := 0; row < 8; row++ {
+			if col < len(paddedChunk[row]) && paddedChunk[row][col] != ' ' {
+				allSpaces = false
+				break
+			}
+		}
+
+		if allSpaces {
+			consecutiveSpaces++
+			// If we have 2+ consecutive space columns, it's a word boundary
+			if consecutiveSpaces >= 2 && inWord {
+				// Trim trailing spaces from current word
+				trimmedWord := make([]string, 8)
+				for i := 0; i < 8; i++ {
+					trimmedWord[i] = strings.TrimRight(currentWord[i], " ")
+				}
+				words = append(words, trimmedWord)
+
+				// Reset for next word
+				currentWord = make([]string, 8)
+				inWord = false
+			}
+		} else {
+			consecutiveSpaces = 0
+			inWord = true
+			// Add this column to current word
+			for row := 0; row < 8; row++ {
+				if col < len(paddedChunk[row]) {
+					currentWord[row] += string(paddedChunk[row][col])
+				}
+			}
+		}
+	}
+
+	// Don't forget the last word
+	if inWord {
+		trimmedWord := make([]string, 8)
+		for i := 0; i < 8; i++ {
+			trimmedWord[i] = strings.TrimRight(currentWord[i], " ")
+		}
+		words = append(words, trimmedWord)
+	}
+
+	return words
+}
+
+// getWordWidth returns the width of a word (length of its first line)
+func getWordWidth(word []string) int {
+	if len(word) == 0 {
+		return 0
+	}
+	return len(word[0])
 }
 
 // AlignLine applies alignment to a single line of text
