@@ -11,10 +11,10 @@ import (
 )
 
 func main() {
-	// Obtain user arguements from command line
+	// Obtain user arguments from command line
 	args := os.Args[1:]
 
-	// Priority 1: Check for --reverse flag first (takes precendence over everything)
+	// Priority 1: Check for --reverse flag first (takes precedence over everything)
 	if reverse.HasReverseFlag(args) {
 		reverse.HandleReverse(args)
 		return
@@ -35,10 +35,11 @@ func main() {
 	}
 
 	// Temporarily replace os.Args with remaining args for color parsing
+	// This allows GetUserInputWithColor to work as if --align and --output flags weren't there
 	originalArgs := os.Args
 	os.Args = append([]string{os.Args[0]}, remainingArgs...)
 
-	// Priority 4: Get User input and banner choice
+	// Priority 4: Get user input and banner choice
 	input, banner, colorConfig, err := color.GetUserInputWithColor()
 
 	// Restore original args
@@ -75,7 +76,8 @@ func main() {
 		}
 	} else {
 		// No output file, apply alignment to stdout
-		err = justify.HandleJustify(renderFunc, alignType)
+		// Pass input and banner for justify to work properly
+		err = justify.HandleJustify(renderFunc, alignType, input, result)
 		if err != nil {
 			fmt.Println(err)
 			return

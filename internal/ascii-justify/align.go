@@ -1,6 +1,9 @@
 package asciijustify
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 // ApplyAlignment applies the specified alignment to ASCII art lines
 // Returns a new slice with aligned lines
@@ -80,6 +83,12 @@ func JustifyAlign(lines []string, termWidth int) []string {
 // JustifyChunk justifies a single 8-line chunk (one line of text)
 // This extracts individual words and distributes them evenly across terminal width
 func JustifyChunk(chunk []string, termWidth int) []string {
+	// DEBUG: Show what chunk looks like
+	fmt.Println("DEBUG: Chunk received:")
+	for i, line := range chunk {
+		fmt.Printf("  Line %d: %q\n", i, line)
+	}
+	// END DEBUG
 	// ========================================
 	// TUNING VARIABLES - Adjust these to fine-tune justify spacing
 	// ========================================
@@ -95,6 +104,13 @@ func JustifyChunk(chunk []string, termWidth int) []string {
 
 	// Step 1: Extract individual words from the ASCII art chunk
 	words := extractWords(chunk)
+
+	// TEMPORARY DEBUG
+	fmt.Printf("DEBUG: Extracted %d words:\n", len(words))
+	for i, word := range words {
+		fmt.Printf("  Word %d: width=%d, content=%q\n", i, getWordWidth(word), word[0])
+	}
+	// END DEBUG
 
 	// If only one word or no words, center it instead
 	if len(words) <= 1 {
@@ -130,6 +146,13 @@ func JustifyChunk(chunk []string, termWidth int) []string {
 	}
 
 	spacePerGap := availableSpace / gaps
+
+	// TEMPORARY DEBUG - Remove after fixing
+	fmt.Printf("DEBUG: termWidth=%d, margin=%d, usableWidth=%d\n", termWidth, margin, usableWidth)
+	fmt.Printf("DEBUG: totalWordWidth=%d, availableSpace=%d, gaps=%d, spacePerGap=%d\n",
+		totalWordWidth, availableSpace, gaps, spacePerGap)
+	fmt.Printf("DEBUG: maxSpacingPerGap=%d, will center=%v\n", maxSpacingPerGap, spacePerGap > maxSpacingPerGap)
+	// END DEBUG
 
 	// Step 5a: Check if spacing exceeds maximum allowed
 	if spacePerGap > maxSpacingPerGap {
