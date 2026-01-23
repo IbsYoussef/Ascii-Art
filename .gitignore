@@ -1,2 +1,45 @@
-# Scripts directory
-# /scripts
+# Demo recording scripts
+scripts/
+
+# Go build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Output coverage files
+*.out
+coverage.html
+
+# Go workspace file
+go.work
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
+
+# Output files from demos
+*.txt
+art.txt
+output.txt
+colored.txt
+reverse.txt
+multiline.txt
+
+# asciinema recordings
+*.cast
