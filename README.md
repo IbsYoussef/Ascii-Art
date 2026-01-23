@@ -5,7 +5,7 @@
 [![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://golang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-![Basic Demo](assets/demo.gif)
+![Basic Demo](assets/intro_demo.gif)
 
 **Transform text into stylized ASCII art**
 
@@ -39,6 +39,7 @@ A lightweight CLI tool that renders text as ASCII art. Choose from multiple font
 - 🌈 Full RGB/HSL/Hex color support with substring coloring
 - 💾 Save output directly to files
 - 🔄 Reverse ASCII art back to original text
+- 📐 Text alignment and justification (left, right, center, justify)
 - 🧪 100% test coverage with unit and E2E tests
 - 📦 Zero dependencies - uses only Go standard library
 
@@ -50,7 +51,7 @@ A lightweight CLI tool that renders text as ASCII art. Choose from multiple font
 
 Transform any text into stylized ASCII art using three distinct banner fonts.
 
-![Standard Demo](assets/demo_standard.gif)
+![Standard Demo](assets/standard_demo.gif)
 
 **Supported Banners:**
 
@@ -85,7 +86,7 @@ go run ./cmd "First\nLine" standard
 
 Add vibrant colors to your ASCII art with multiple color format support.
 
-![Color Demo](assets/demo_color.gif)
+![Color Demo](assets/color_demo.gif)
 
 **Color Formats:**
 
@@ -137,7 +138,7 @@ go run ./cmd --color=green kit "a king kitten have kit" standard
 
 Save your ASCII art creations directly to files, with full color preservation.
 
-![Output Demo](assets/demo_output.gif)
+![Output Demo](assets/output_demo.gif)
 
 **Save to File:**
 
@@ -185,7 +186,7 @@ go run ./cmd --output=rainbow.txt --color=blue Art "ASCII Art" shadow
 
 Convert ASCII art back to its original text with automatic banner detection.
 
-<img src="assets/demo_reverse.gif" width="1000" height="650" alt="Reverse Demo">
+<img src="assets/reverse_demo.gif" width="600" alt="Reverse Demo">
 
 **Features:**
 
@@ -239,6 +240,64 @@ go run ./cmd --reverse=year.txt
 - Supports standard, shadow, and thinkertoy banners
 - Cannot reverse colored ASCII art (ANSI codes interfere with pattern matching)
 - Preserves newlines and formatting
+
+---
+
+### 📐 Text Alignment & Justification
+
+Align your ASCII art perfectly for any terminal width with dynamic text alignment.
+
+<img src="assets/justify_demo.gif" width="900" alt="Justify Demo">
+
+**Alignment Options:**
+
+- `left` - Left alignment with 8-space margin (default)
+- `right` - Right-aligned with dynamic padding
+- `center` - Centered text with balanced spacing
+- `justify` - Words distributed evenly across terminal width
+
+**Basic Alignment:**
+
+```bash
+# Left alignment (default)
+go run ./cmd --align=left "Hello" standard
+
+# Right alignment
+go run ./cmd --align=right "Hello" standard
+
+# Center alignment
+go run ./cmd --align=center "Hello" shadow
+
+# Justify (word distribution)
+go run ./cmd --align=justify "Hello World" thinkertoy
+```
+
+**Alignment Features:**
+
+- **Terminal Width Detection**: Automatically adapts to your terminal size via `COLUMNS` environment variable
+- **Dynamic Spacing**: Smart algorithms calculate optimal spacing for each alignment type
+- **Works with All Banners**: Compatible with standard, shadow, and thinkertoy
+- **Combine with Other Features**: Use alignment with colors and output flags
+
+**Advanced Examples:**
+
+```bash
+# Center alignment with color
+go run ./cmd --align=center --color=cyan "Centered" shadow
+
+# Right alignment saved to file
+go run ./cmd --align=right --output=right.txt "Right" standard
+
+# Justify with substring coloring
+go run ./cmd --align=justify --color=green "World" "Hello World" thinkertoy
+```
+
+**Alignment Notes:**
+
+- Alignment applies to terminal output only (not file output)
+- Terminal width is detected automatically (default: 80 columns if not detected)
+- Justify distributes words evenly, creating uniform spacing
+- All alignments maintain the integrity of ASCII art characters
 
 ---
 
@@ -429,15 +488,14 @@ go run ./cmd --reverse example.txt
 ```
 Ascii-Art/
 ├── README.md
-├── LICENSE.txt
-├── ROADMAP.md
 ├── go.mod
 ├── assets/
-│   ├── demo.gif                # Original project demo
-│   ├── demo_standard.gif       # Standard features demo
-│   ├── demo_color.gif          # Color features demo
-│   ├── demo_output.gif         # Output features demo
-│   └── demo_reverse.gif        # Reverse features demo
+│   ├── intro_demo.gif          # Intro demo
+│   ├── standard_demo.gif       # Standard features demo
+│   ├── color_demo.gif          # Color features demo
+│   ├── output_demo.gif         # Output features demo
+│   ├── reverse_demo.gif        # Reverse features demo
+│   └── justify_demo.gif        # Justify features demo
 ├── banners/
 │   ├── standard.txt            # Standard banner font
 │   ├── shadow.txt              # Shadow banner font
@@ -466,37 +524,50 @@ Ascii-Art/
 │   │   ├── recogniser.go       # Pattern recognition
 │   │   ├── templateLoader.go   # Banner template loading
 │   │   └── reverseHandler.go   # Main reverse handler
+│   ├── ascii-justify/          # Justify/align feature module
+│   │   ├── align.go            # Alignment algorithms
+│   │   ├── errors.go           # Error definitions
+│   │   ├── handler.go          # Main justify handler
+│   │   ├── inputJustify.go     # Align flag parsing
+│   │   ├── measure.go          # Text measurement utilities
+│   │   └── terminal.go         # Terminal width detection
 │   └── files/
 │       └── readFile.go         # File reading utilities
-├── scripts/                    # Demo scripts
-│   ├── demo_all.sh             # Master demo script
-│   ├── demo_standard.sh        # Standard features
-│   ├── demo_color.sh           # Color features
-│   ├── demo_output.sh          # Output features
-│   └── demo_reverse.sh         # Reverse features
+├── scripts/                    # Demo recording scripts
+│   ├── demo_intro.sh           # Intro demo script
+│   ├── demo_standard.sh        # Standard features demo
+│   ├── demo_color.sh           # Color features demo
+│   ├── demo_output.sh          # Output features demo
+│   ├── demo_reverse.sh         # Reverse features demo
+│   └── demo_justify.sh         # Justify features demo
 └── test/
     ├── unit/                   # Unit tests
+    │   ├── align_test.go
     │   ├── color_test.go
+    │   ├── fileReader_test.go
+    │   ├── fileWriter_test.go
     │   ├── inputColor_test.go
+    │   ├── inputJustify_test.go
     │   ├── inputOutput_test.go
+    │   ├── inputReverse_test.go
     │   ├── input_test.go
     │   ├── loadBanner_test.go
+    │   ├── measure_test.go
+    │   ├── outputHandler_test.go
+    │   ├── parser_test.go
     │   ├── readFile_test.go
+    │   ├── recogniser_test.go
     │   ├── renderAscii_test.go
     │   ├── renderColor_test.go
-    │   ├── fileWriter_test.go
-    │   ├── outputHandler_test.go
-    │   ├── fileReader_test.go
-    │   ├── inputReverse_test.go
-    │   ├── parser_test.go
-    │   ├── recogniser_test.go
-    │   ├── templateLoader.go
+    │   ├── templateLoader_test.go
+    │   ├── terminal_test.go
     │   └── test_helpers.go
     └── e2e/                    # End-to-end tests
         ├── e2e_test.go
         ├── e2e_color_test.go
         ├── e2e_output_test.go
-        └── e2e_reverse_test.go
+        ├── e2e_reverse_test.go
+        └── e2e_justify.sh      # Shell test script for justify
 ```
 
 ### Architecture Overview
@@ -558,11 +629,11 @@ go tool cover -html=coverage.out
 - ✅ Output flag parsing
 - ✅ File writing operations
 - ✅ Output capture and routing
-- ✅ Reverse flag parsing 
-- ✅ ASCII art file reading 
-- ✅ ASCII art parsing into chunks 
-- ✅ Pattern recognition and matching 
-- ✅ Template loading with CRLF support 
+- ✅ Reverse flag parsing
+- ✅ ASCII art file reading
+- ✅ ASCII art parsing into chunks
+- ✅ Pattern recognition and matching
+- ✅ Template loading with CRLF support
 
 **E2E Tests:**
 
@@ -573,36 +644,41 @@ go tool cover -html=coverage.out
 - ✅ Substring coloring
 - ✅ File output creation
 - ✅ Combined features (color + output)
-- ✅ Reverse feature (13 comprehensive tests) 
-- ✅ Auto banner detection 
-- ✅ Multiline reverse 
+- ✅ Reverse feature (13 comprehensive tests)
+- ✅ Auto banner detection
+- ✅ Multiline reverse
 - ✅ Error handling and usage messages
 
 **Test Statistics:**
 
-- Total test files: 17 (13 unit + 4 E2E)
+- Total test files: 25 (20 unit + 5 E2E)
+- Unit tests: 20 comprehensive test files
 - Reverse feature: 13/13 tests passing (100% ✅)
+- Justify feature: 15/15 manual tests passing (100% ✅)
 - Overall coverage: ~95%
-
 
 ---
 
 ## 🔭 Roadmap
 
-### Current Version: v1.2.0
+### Current Version: v1.4.0
 
 **Completed Features:**
 
 - ✅ v1.0.0 - Core ASCII art generation
 - ✅ v1.1.0 - Color support (named, hex, RGB, HSL)
 - ✅ v1.2.0 - Output to file support
-- ✅ v1.3.0 - Reverse feature (ASCII art -> text)
+- ✅ v1.3.0 - Reverse feature (ASCII art → text)
+- ✅ v1.4.0 - Text alignment and justification
 
 ### Future Enhancements
 
-**Planned for v1.4.0:**
+**Under Consideration:**
 
-- 📏 **Text Alignment** - `--align=<left|center|right>` flag for text justification
+- 🎨 Additional banner styles
+- ⚡ Performance optimizations
+- 🔧 Extended special character support
+- 📊 ASCII art templates and presets
 
 ---
 
