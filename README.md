@@ -330,7 +330,7 @@ go run ./cmd --color=<color> "Your Text" <banner>
 go run ./cmd --output=<file.txt> "Your Text" <banner>
 
 # Reverse ASCII art
-go run ./cmd --reverse=
+go run ./cmd --reverse=<file.txt>
 
 # All together (except reverse)
 go run ./cmd --output=art.txt --color=red "Your Text" shadow
